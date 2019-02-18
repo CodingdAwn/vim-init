@@ -130,6 +130,9 @@ set formatoptions+=B
 " 文件换行符，默认使用 unix 换行符
 set ffs=unix,dos,mac
 
+" 设置quickfix中在新标签打开文件
+set switchbuf=useopen,usetab,newtab
+
 
 "----------------------------------------------------------------------
 " 设置代码折叠

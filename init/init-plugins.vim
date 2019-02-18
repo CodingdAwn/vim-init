@@ -119,12 +119,16 @@ if index(g:bundle_group, 'basic') >= 0
 	" Git 支持
 	Plug 'tpope/vim-fugitive'
 
+	" python IDE
+	Plug 'python-mode/python-mode', { 'branch': 'develop' }
+
 	" 使用 ALT+E 来选择窗口
 	nmap <m-e> <Plug>(choosewin)
 
 	" 默认不显示 startify
-	let g:startify_disable_at_vimenter = 1
+	let g:startify_disable_at_vimenter = 0
 	let g:startify_session_dir = '~/.vim/session'
+	set viminfo='100,n$HOME/.vim/files/info/viminfo'
 
 	" 使用 <space>ha 清除 errormarker 标注的错误
 	noremap <silent><space>ha :RemoveErrorMarkers<cr>
@@ -221,6 +225,9 @@ if index(g:bundle_group, 'tags') >= 0
 
 	" 禁止 gutentags 自动链接 gtags 数据库
 	let g:gutentags_auto_add_gtags_cscope = 0
+
+	" guntentags_plus 开启
+	let g:gutentags_plus_switch = 1
 endif
 
 
@@ -362,8 +369,8 @@ if index(g:bundle_group, 'ale') >= 0
 
 	" 编辑不同文件类型需要的语法检查器
 	let g:ale_linters = {
-				\ 'c': ['gcc', 'cppcheck'], 
-				\ 'cpp': ['gcc', 'cppcheck'], 
+				\ 'c': ['cppcheck'], 
+				\ 'cpp': ['cppcheck'], 
 				\ 'python': ['flake8', 'pylint'], 
 				\ 'lua': ['luac'], 
 				\ 'go': ['go build', 'gofmt'],
@@ -517,6 +524,8 @@ if index(g:bundle_group, 'leaderf') >= 0
 	endif
 endif
 
+" YouCompleteMe 
+Plug 'Valloric/YouCompleteMe'
 
 "----------------------------------------------------------------------
 " 结束插件安装
@@ -538,6 +547,9 @@ let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_complete_in_strings=1
 let g:ycm_key_invoke_completion = '<c-z>'
 set completeopt=menu,menuone,noselect
+
+" Python ycm 解释器
+let g:ycm_server_python_interpreter='/usr/bin/python3'
 
 " noremap <c-z> <NOP>
 
