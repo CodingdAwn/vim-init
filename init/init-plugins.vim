@@ -177,6 +177,9 @@ if index(g:bundle_group, 'enhanced') >= 0
 	" ALT_+/- 用于按分隔符扩大缩小 v 选区
 	map <m-=> <Plug>(expand_region_expand)
 	map <m--> <Plug>(expand_region_shrink)
+
+	" indentLine
+	Plug 'Yggdroot/indentLine'
 endif
 
 
@@ -273,6 +276,9 @@ if index(g:bundle_group, 'filetypes') >= 0
 	" C++ 语法高亮增强，支持 11/14/17 标准
 	Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 
+  " 使用新的语法高亮
+	" Plug 'jeaye/color_coded'
+
 	" 额外语法文件
 	Plug 'justinmk/vim-syntax-extra', { 'for': ['c', 'bison', 'flex', 'cpp'] }
 
@@ -288,6 +294,15 @@ endif
 
 
 "----------------------------------------------------------------------
+" highlight 
+"----------------------------------------------------------------------
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+let g:cpp_experimental_template_highlight = 1
+let g:cpp_concepts_highlight = 1
+let g:cpp_no_function_highlight = 0
+
 " airline
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'airline') >= 0
