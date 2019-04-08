@@ -121,6 +121,23 @@ if index(g:bundle_group, 'basic') >= 0
 
 	" python IDE
 	Plug 'python-mode/python-mode', { 'branch': 'develop' }
+	
+	" python-mode 设置
+	let g:pymode_python = 'python3'
+
+	" 开启rope
+	let g:pymode_rope = 1
+
+	"显示python文档
+	let g:pymode_doc = 1
+	let g:pymode_doc_key = "K"
+
+	" 语法高亮
+	let g:pymode_syntax = 1
+	let g:pymode_syntax_all = 1
+
+	" 查找定义时使用新新窗口 之后看看怎么调整为tab
+  let g:pymode_rope_goto_definition_cmd = 'vnew'
 
 	" 使用 ALT+E 来选择窗口
 	nmap <m-e> <Plug>(choosewin)
