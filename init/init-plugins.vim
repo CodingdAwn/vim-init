@@ -122,6 +122,25 @@ if index(g:bundle_group, 'basic') >= 0
 	" python IDE
 	Plug 'python-mode/python-mode', { 'branch': 'develop' }
 
+	" python-mode 设置
+  let g:pymode_python = 'python3'
+	" 之后查查rope是做什么的
+	let g:pymode_rope = 1
+
+	" 显示python文档
+	let g:pymode_doc = 1
+	let g:pymode_doc_key = "K"
+	
+	" 暂时先关闭pymode的lint检查 一直报错
+	let g:pymode_lint = 0
+
+	" 语法高亮
+	let g:pymode_syntax = 1
+	let g:pymode_syntax_all = 1
+
+	" 查找定义时使用新窗口
+	let g:pymode_rope_goto_definition_cmd = 'vnew'
+
 	" 使用 ALT+E 来选择窗口
 	nmap <m-e> <Plug>(choosewin)
 
@@ -177,6 +196,9 @@ if index(g:bundle_group, 'enhanced') >= 0
 	" ALT_+/- 用于按分隔符扩大缩小 v 选区
 	map <m-=> <Plug>(expand_region_expand)
 	map <m--> <Plug>(expand_region_shrink)
+
+	" intentLine
+	Plug 'Yggdroot/indentLine'
 endif
 
 
@@ -272,6 +294,9 @@ if index(g:bundle_group, 'filetypes') >= 0
 
 	" C++ 语法高亮增强，支持 11/14/17 标准
 	Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
+	
+	" 使用其他的语法高亮插件试试
+  "Plug 'jeaye/color_coded'
 
 	" 额外语法文件
 	Plug 'justinmk/vim-syntax-extra', { 'for': ['c', 'bison', 'flex', 'cpp'] }
@@ -286,6 +311,13 @@ if index(g:bundle_group, 'filetypes') >= 0
 	Plug 'jceb/vim-orgmode', { 'for': 'org' }
 endif
 
+" vim-cpp-enhanced-highlight c++语法高亮
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+let g:cpp_experimental_template_highlight = 1
+let g:cpp_concepts_highlight = 1
+let g:cpp_no_function_highlight = 1
 
 "----------------------------------------------------------------------
 " airline
@@ -371,7 +403,7 @@ if index(g:bundle_group, 'ale') >= 0
 	let g:ale_linters = {
 				\ 'c': ['cppcheck'], 
 				\ 'cpp': ['cppcheck'], 
-				\ 'python': ['flake8', 'pylint'], 
+				\ 'python': ['pylint'], 
 				\ 'lua': ['luac'], 
 				\ 'go': ['go build', 'gofmt'],
 				\ 'java': ['javac'],
@@ -425,7 +457,7 @@ endif
 if index(g:bundle_group, 'leaderf') >= 0
 	" 如果 vim 支持 python 则启用  Leaderf
 	if has('python') || has('python3')
-		Plug 'Yggdroot/LeaderF', {'do': './install.sh'}
+		Plug 'Yggdroot/LeaderF', {'do': '.\install.bat'}
 
 		" CTRL+p 打开文件模糊匹配
 		let g:Lf_ShortcutF = '<c-p>'
@@ -525,7 +557,7 @@ if index(g:bundle_group, 'leaderf') >= 0
 endif
 
 " YouCompleteMe 
-Plug 'Valloric/YouCompleteMe'
+" Plug 'Valloric/YouCompleteMe'
 
 "----------------------------------------------------------------------
 " 结束插件安装
@@ -535,7 +567,6 @@ call plug#end()
 "----------------------------------------------------------------------
 " YouCompleteMe 默认设置：YCM 需要你另外手动编译安装
 "----------------------------------------------------------------------
-
 " 禁用预览功能：扰乱视听
 let g:ycm_add_preview_to_completeopt = 0
 
@@ -549,7 +580,8 @@ let g:ycm_key_invoke_completion = '<c-z>'
 set completeopt=menu,menuone,noselect
 
 " Python ycm 解释器
-let g:ycm_server_python_interpreter='/usr/bin/python3'
+let g:ycm_server_python_interpreter='C:\Users\dAwn_\AppData\Local\Programs\Python\Python37\python3.exe'
+let g:ycm_global_ycm_extra_conf='~\.vim\.ycm_extra_conf.py'
 
 " noremap <c-z> <NOP>
 
@@ -566,6 +598,7 @@ let g:ycm_semantic_triggers =  {
 let g:ycm_filetype_whitelist = { 
 			\ "c":1,
 			\ "cpp":1, 
+			\ "cxx":1, 
 			\ "objc":1,
 			\ "objcpp":1,
 			\ "python":1,
