@@ -16,7 +16,7 @@
 if !exists('g:bundle_group')
 	let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes', 'textobj']
 	let g:bundle_group += ['tags', 'airline', 'nerdtree', 'ale', 'echodoc', 'YCM']
-	let g:bundle_group += ['leaderf']
+	let g:bundle_group += ['leaderf', 'python-mode']
 endif
 
 
@@ -53,7 +53,6 @@ Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 " Diff 增强，支持 histogram / patience 等更科学的 diff 算法
 Plug 'chrisbra/vim-diff-enhanced'
 
-
 "----------------------------------------------------------------------
 " Dirvish 设置：自动排序并隐藏文件，同时定位到相关文件
 " 这个排序函数可以将目录排在前面，文件排在后面，并且按照字母顺序排序
@@ -84,7 +83,6 @@ augroup MyPluginSetup
 	autocmd!
 	autocmd FileType dirvish call s:setup_dirvish()
 augroup END
-
 
 "----------------------------------------------------------------------
 " 基础插件
@@ -119,27 +117,14 @@ if index(g:bundle_group, 'basic') >= 0
 	" Git 支持
 	Plug 'tpope/vim-fugitive'
 
-	" python IDE
-	Plug 'python-mode/python-mode', { 'branch': 'develop' }
+	" auto format c++ 默认使用llvm google风格
+	Plug 'Chiel92/vim-autoformat'
 
-	" python-mode 设置
-  let g:pymode_python = 'python3'
-	" 之后查查rope是做什么的
-	let g:pymode_rope = 1
+	" 头文件 cpp切换
+	Plug 'CodingdAwn/a.vim'
 
-	" 显示python文档
-	let g:pymode_doc = 1
-	let g:pymode_doc_key = "K"
-	
-	" 暂时先关闭pymode的lint检查 一直报错
-	let g:pymode_lint = 0
-
-	" 语法高亮
-	let g:pymode_syntax = 1
-	let g:pymode_syntax_all = 1
-
-	" 查找定义时使用新窗口
-	let g:pymode_rope_goto_definition_cmd = 'vnew'
+	" 设置autoformat快捷键
+	noremap <F3> :Autoformat<CR>
 
 	" 使用 ALT+E 来选择窗口
 	nmap <m-e> <Plug>(choosewin)
@@ -166,6 +151,13 @@ if index(g:bundle_group, 'basic') >= 0
 			\}
 endif
 
+
+"----------------------------------------------------------------------
+" YouCompleteMe
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'YCM') >= 0
+	Plug 'Valloric/YouCompleteMe'
+endif
 
 "----------------------------------------------------------------------
 " 增强插件
@@ -309,15 +301,15 @@ if index(g:bundle_group, 'filetypes') >= 0
 
 	" vim org-mode 
 	Plug 'jceb/vim-orgmode', { 'for': 'org' }
-endif
 
-" vim-cpp-enhanced-highlight c++语法高亮
-let g:cpp_class_scope_highlight = 1
-let g:cpp_member_variable_highlight = 1
-let g:cpp_class_decl_highlight = 1
-let g:cpp_experimental_template_highlight = 1
-let g:cpp_concepts_highlight = 1
-let g:cpp_no_function_highlight = 1
+	" vim-cpp-enhanced-highlight c++语法高亮
+	let g:cpp_class_scope_highlight = 1
+	let g:cpp_member_variable_highlight = 1
+	let g:cpp_class_decl_highlight = 1
+	let g:cpp_experimental_template_highlight = 1
+	let g:cpp_concepts_highlight = 1
+	let g:cpp_no_function_highlight = 1
+endif
 
 "----------------------------------------------------------------------
 " airline
@@ -556,8 +548,32 @@ if index(g:bundle_group, 'leaderf') >= 0
 	endif
 endif
 
-" YouCompleteMe 
-" Plug 'Valloric/YouCompleteMe'
+"----------------------------------------------------------------------
+" python mode 
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'python-mode') >= 0
+	" python IDE
+	Plug 'python-mode/python-mode', { 'branch': 'develop' }
+
+	" python-mode 设置
+  let g:pymode_python = 'python3'
+	" 之后查查rope是做什么的
+	let g:pymode_rope = 1
+
+	" 显示python文档
+	let g:pymode_doc = 1
+	let g:pymode_doc_key = "K"
+	
+	" 暂时先关闭pymode的lint检查 一直报错
+	let g:pymode_lint = 0
+
+	" 语法高亮
+	let g:pymode_syntax = 1
+	let g:pymode_syntax_all = 1
+
+	" 查找定义时使用新窗口
+	let g:pymode_rope_goto_definition_cmd = 'vnew'
+endif
 
 "----------------------------------------------------------------------
 " 结束插件安装
