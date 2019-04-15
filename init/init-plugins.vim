@@ -16,7 +16,7 @@
 if !exists('g:bundle_group')
 	let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes', 'textobj']
 	let g:bundle_group += ['tags', 'airline', 'nerdtree', 'ale', 'echodoc', 'YCM']
-	let g:bundle_group += ['leaderf']
+	let g:bundle_group += ['leaderf', 'python-mode']
 endif
 
 
@@ -119,25 +119,14 @@ if index(g:bundle_group, 'basic') >= 0
 	" Git 支持
 	Plug 'tpope/vim-fugitive'
 
-	" python IDE
-	Plug 'python-mode/python-mode', { 'branch': 'develop' }
-	
-	" python-mode 设置
-	let g:pymode_python = 'python3'
+	" auto formate c++ 默认使用llvm google风格
+	Plug 'Chiel92/vim-autoformat'
 
-	" 开启rope
-	let g:pymode_rope = 1
+	" 头文件 cpp切换
+	Plug 'CodingdAwn/a.vim'	
 
-	"显示python文档
-	let g:pymode_doc = 1
-	let g:pymode_doc_key = "K"
-
-	" 语法高亮
-	let g:pymode_syntax = 1
-	let g:pymode_syntax_all = 1
-
-	" 查找定义时使用新新窗口 之后看看怎么调整为tab
-  let g:pymode_rope_goto_definition_cmd = 'vnew'
+	" 设置auto format快捷键
+	noremap <F3> :Autoformat<CR>	
 
 	" 使用 ALT+E 来选择窗口
 	nmap <m-e> <Plug>(choosewin)
@@ -197,6 +186,45 @@ if index(g:bundle_group, 'enhanced') >= 0
 
 	" indentLine
 	Plug 'Yggdroot/indentLine'
+endif
+
+
+"----------------------------------------------------------------------
+" python mode 
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'python-mode') >= 0
+	" python IDE
+	Plug 'python-mode/python-mode', { 'branch': 'develop' }
+	
+	" python-mode 设置
+	"
+	"
+	let g:pymode_python = 'python3'
+
+	" 开启rope
+	let g:pymode_rope = 1
+
+	"显示python文档
+	let g:pymode_doc = 1
+	let g:pymode_doc_key = "K"
+
+	" 语法高亮
+	let g:pymode_syntax = 1
+	let g:pymode_syntax_all = 1
+
+	" 查找定义时使用新新窗口 之后看看怎么调整为tab
+  let g:pymode_rope_goto_definition_cmd = 'vnew'
+endif
+
+
+"----------------------------------------------------------------------
+" YouCompleteMe
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'YCM') >= 0
+Plug 'Valloric/YouCompleteMe'
+
+" .ycm_extra_conf.py生成
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 endif
 
 
@@ -307,18 +335,18 @@ if index(g:bundle_group, 'filetypes') >= 0
 
 	" vim org-mode 
 	Plug 'jceb/vim-orgmode', { 'for': 'org' }
+	
+	"----------------------------------------------------------------------
+	" highlight 
+	"----------------------------------------------------------------------
+	let g:cpp_class_scope_highlight = 1
+	let g:cpp_member_variable_highlight = 1
+	let g:cpp_class_decl_highlight = 1
+	let g:cpp_experimental_template_highlight = 1
+	let g:cpp_concepts_highlight = 1
+	let g:cpp_no_function_highlight = 0
 endif
 
-
-"----------------------------------------------------------------------
-" highlight 
-"----------------------------------------------------------------------
-let g:cpp_class_scope_highlight = 1
-let g:cpp_member_variable_highlight = 1
-let g:cpp_class_decl_highlight = 1
-let g:cpp_experimental_template_highlight = 1
-let g:cpp_concepts_highlight = 1
-let g:cpp_no_function_highlight = 0
 
 " airline
 "----------------------------------------------------------------------
@@ -556,8 +584,6 @@ if index(g:bundle_group, 'leaderf') >= 0
 	endif
 endif
 
-" YouCompleteMe 
-Plug 'Valloric/YouCompleteMe'
 
 "----------------------------------------------------------------------
 " 结束插件安装
