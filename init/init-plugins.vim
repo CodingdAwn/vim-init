@@ -16,7 +16,7 @@
 if !exists('g:bundle_group')
 	let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes', 'textobj']
 	let g:bundle_group += ['tags', 'airline', 'nerdtree', 'ale', 'echodoc', 'YCM']
-	let g:bundle_group += ['leaderf', 'python-mode']
+	let g:bundle_group += ['leaderf', 'python-mode', 'cplusplus']
 endif
 
 
@@ -117,21 +117,12 @@ if index(g:bundle_group, 'basic') >= 0
 	" Git 支持
 	Plug 'tpope/vim-fugitive'
 
-	" auto format c++ 默认使用llvm google风格
-	Plug 'Chiel92/vim-autoformat'
-
-	" 头文件 cpp切换
-	Plug 'CodingdAwn/a.vim'
-
-	" 设置autoformat快捷键
-	noremap <F3> :Autoformat<CR>
-
 	" 使用 ALT+E 来选择窗口
 	nmap <m-e> <Plug>(choosewin)
 
 	" 默认不显示 startify
 	let g:startify_disable_at_vimenter = 0
-	let g:startify_session_dir = '~/.vim/session'
+	let g:startify_sesion_dir = '~/.vim/session'
 	set viminfo='100,n$HOME/.vim/files/info/viminfo'
 
 	" 使用 <space>ha 清除 errormarker 标注的错误
@@ -573,6 +564,24 @@ if index(g:bundle_group, 'python-mode') >= 0
 
 	" 查找定义时使用新窗口
 	let g:pymode_rope_goto_definition_cmd = 'vnew'
+endif
+
+
+"----------------------------------------------------------------------
+" c/c++ customer config
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'cplusplus') >= 0
+	" auto format c++ 默认使用llvm google风格
+	Plug 'Chiel92/vim-autoformat'
+
+	" 头文件 cpp切换
+	Plug 'CodingdAwn/a.vim'
+
+	" 由接口快速生成实现
+	Plug 'derekwyatt/vim-protodef'
+
+	" 设置autoformat快捷键
+	noremap <F3> :Autoformat<CR>
 endif
 
 "----------------------------------------------------------------------
