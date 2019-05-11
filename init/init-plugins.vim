@@ -9,14 +9,13 @@
 " vim: set ts=4 sw=4 tw=78 noet :
 
 
-
 "----------------------------------------------------------------------
 " 默认情况下的分组，可以再前面覆盖之
 "----------------------------------------------------------------------
 if !exists('g:bundle_group')
 	let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes', 'textobj']
 	let g:bundle_group += ['tags', 'airline', 'nerdtree', 'ale', 'echodoc', 'YCM']
-	let g:bundle_group += ['leaderf', 'python-mode']
+	let g:bundle_group += ['leaderf', 'python-mode', 'cplusplus']
 endif
 
 
@@ -119,15 +118,6 @@ if index(g:bundle_group, 'basic') >= 0
 	" Git 支持
 	Plug 'tpope/vim-fugitive'
 
-	" auto formate c++ 默认使用llvm google风格
-	Plug 'Chiel92/vim-autoformat'
-
-	" 头文件 cpp切换
-	Plug 'CodingdAwn/a.vim'	
-
-	" 设置auto format快捷键
-	noremap <F3> :Autoformat<CR>	
-
 	" 使用 ALT+E 来选择窗口
 	nmap <m-e> <Plug>(choosewin)
 
@@ -221,10 +211,10 @@ endif
 " YouCompleteMe
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'YCM') >= 0
-Plug 'Valloric/YouCompleteMe'
-
-" .ycm_extra_conf.py生成
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+	Plug 'Valloric/YouCompleteMe'
+	
+	" .ycm_extra_conf.py生成
+	Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 endif
 
 
@@ -468,6 +458,24 @@ if index(g:bundle_group, 'ale') >= 0
 	endif
 endif
 
+	" auto formate c++ 默认使用llvm google风格
+	" auto formate c++ 默认使用llvm google风格
+	Plug 'Chiel92/vim-autoformat'
+
+	" 头文件 cpp切换
+	Plug 'CodingdAwn/a.vim'	
+
+	" 设置auto format快捷键
+	noremap <F3> :Autoformat<CR>	
+
+	Plug 'Chiel92/vim-autoformat'
+
+	" 头文件 cpp切换
+	Plug 'CodingdAwn/a.vim'	
+
+	" 设置auto format快捷键
+	noremap <F3> :Autoformat<CR>	
+
 
 "----------------------------------------------------------------------
 " echodoc：搭配 YCM/deoplete 在底部显示函数参数
@@ -584,6 +592,51 @@ if index(g:bundle_group, 'leaderf') >= 0
 	endif
 endif
 
+
+"----------------------------------------------------------------------
+" python mode 
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'python-mode') >= 0
+	" python IDE
+	Plug 'python-mode/python-mode', { 'branch': 'develop' }
+	
+	" python-mode 设置
+	"
+	"
+	let g:pymode_python = 'python3'
+
+	" 开启rope
+	let g:pymode_rope = 1
+
+	"显示python文档
+	let g:pymode_doc = 1
+	let g:pymode_doc_key = "K"
+
+	" 语法高亮
+	let g:pymode_syntax = 1
+	let g:pymode_syntax_all = 1
+
+	" 查找定义时使用新新窗口 之后看看怎么调整为tab
+  let g:pymode_rope_goto_definition_cmd = 'vnew'
+endif
+
+
+"----------------------------------------------------------------------
+" c/c++ customer config
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'cplusplus') >= 0
+	" auto formate c++ 默认使用llvm google风格
+	Plug 'Chiel92/vim-autoformat'
+
+	" 头文件 cpp切换
+	Plug 'CodingdAwn/a.vim'	
+
+	" 由接口快速生成实现
+	Plug 'derekwyatt/vim-protodef'
+
+	" 设置auto format快捷键
+	noremap <F3> :Autoformat<CR>	
+endif
 
 "----------------------------------------------------------------------
 " 结束插件安装
