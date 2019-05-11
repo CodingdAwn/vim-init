@@ -199,7 +199,7 @@ if index(g:bundle_group, 'python-mode') >= 0
 	" python-mode 设置
 	"
 	"
-	let g:pymode_python = 'python3'
+	let g:pymode_python = 'python'
 
 	" 开启rope
 	let g:pymode_rope = 1
@@ -607,7 +607,7 @@ let g:ycm_key_invoke_completion = '<c-z>'
 set completeopt=menu,menuone,noselect
 
 " Python ycm 解释器
-let g:ycm_server_python_interpreter='/usr/bin/python3'
+let g:ycm_server_python_interpreter='/usr/bin/python'
 
 " noremap <c-z> <NOP>
 
