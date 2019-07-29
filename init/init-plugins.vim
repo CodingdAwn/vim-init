@@ -122,6 +122,12 @@ if index(g:bundle_group, 'basic') >= 0
 	" 使用 ALT+E 来选择窗口
 	nmap <m-e> <Plug>(choosewin)
 
+	" 翻译
+	Plug 'CodingdAwn/vim-translator'
+	
+	" 当前单词 下划线
+	Plug 'itchyny/vim-cursorword'
+
 	" 默认不显示 startify
 	let g:startify_disable_at_vimenter = 0
 	let g:startify_session_dir = '~/.vim/session'
@@ -188,6 +194,29 @@ if index(g:bundle_group, 'YCM') >= 0
 	
 	" .ycm_extra_conf.py生成
 	Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+
+	" 禁用预览功能：扰乱视听
+	let g:ycm_add_preview_to_completeopt = 0
+	
+	" 禁用诊断功能：我们用前面更好用的 ALE 代替
+	let g:ycm_show_diagnostics_ui = 0
+	let g:ycm_server_log_level = 'info'
+	let g:ycm_min_num_identifier_candidate_chars = 2
+	let g:ycm_collect_identifiers_from_comments_and_strings = 1
+	let g:ycm_complete_in_strings=1
+	let g:ycm_key_invoke_completion = '<c-z>'
+	set completeopt=menu,menuone,noselect
+	
+	" Python ycm 解释器
+	let g:ycm_server_python_interpreter='/usr/bin/python3'
+	
+	" noremap <c-z> <NOP>
+	
+	" 两个字符自动触发语义补全
+	let g:ycm_semantic_triggers =  {
+				\ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+				\ 'cs,lua,javascript': ['re!\w{2}'],
+				\ }
 endif
 
 
@@ -329,6 +358,9 @@ if index(g:bundle_group, 'airline') >= 0
 	let g:airline#extensions#fugitiveline#enabled = 0
 	let g:airline#extensions#csv#enabled = 0
 	let g:airline#extensions#vimagit#enabled = 0
+
+	" 显示搜索的索引 以及搜索到的总个数
+	Plug 'google/vim-searchindex'
 endif
 
 
@@ -399,6 +431,7 @@ if index(g:bundle_group, 'ale') >= 0
 				\ 'go': ['go build', 'gofmt'],
 				\ 'java': ['javac'],
 				\ 'javascript': ['eslint'], 
+				\ 'cs': ['OmniSharp'], 
 				\ }
 
 
@@ -430,25 +463,6 @@ if index(g:bundle_group, 'ale') >= 0
 		let g:ale_linters.cpp += ['clang']
 	endif
 endif
-
-	" auto formate c++ 默认使用llvm google风格
-	" auto formate c++ 默认使用llvm google风格
-	Plug 'Chiel92/vim-autoformat'
-
-	" 头文件 cpp切换
-	Plug 'CodingdAwn/a.vim'	
-
-	" 设置auto format快捷键
-	noremap <F3> :Autoformat<CR>	
-
-	Plug 'Chiel92/vim-autoformat'
-
-	" 头文件 cpp切换
-	Plug 'CodingdAwn/a.vim'	
-
-	" 设置auto format快捷键
-	noremap <F3> :Autoformat<CR>	
-
 
 "----------------------------------------------------------------------
 " echodoc：搭配 YCM/deoplete 在底部显示函数参数
@@ -604,45 +618,91 @@ if index(g:bundle_group, 'cplusplus') >= 0
 	" 头文件 cpp切换
 	Plug 'CodingdAwn/a.vim'	
 
-	" 由接口快速生成实现
-	Plug 'derekwyatt/vim-protodef'
-
 	" 设置auto format快捷键
 	noremap <F3> :Autoformat<CR>	
 endif
 
 "----------------------------------------------------------------------
+
+" c# and unity customer config
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'unity') >= 0
+  " vim omnicompletion for c#
+  Plug 'OmniSharp/omnisharp-vim'
+
+  " Timeout in seconds to wait for a reponse from the server"
+  let g:OmniSharp_timeout = 5
+
+  "Fetch semantic type/interface/identifier names on BufEnter and highlight them"
+  let g:OmniSharp_highlight_types = 1
+
+  let g:OmniSharp_translate_cygwin_wsl = 1
+
+  " debug log
+  let g:OmniSharp_loglevel = 'debug'
+
+  augroup omnisharp_commands
+    autocmd!
+
+    " When Syntastic is available but not ALE, automatic syntax check on events
+    " (TextChanged requires Vim 7.4)
+    " autocmd BufEnter,TextChanged,InsertLeave *.cs SyntasticCheck
+
+    " Show type information automatically when the cursor stops moving
+    autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
+
+    " Update the highlighting whenever leaving insert mode
+    autocmd InsertLeave *.cs call OmniSharp#HighlightBuffer()
+
+    " Alternatively, use a mapping to refresh highlighting for the current buffer
+    autocmd FileType cs nnoremap <buffer> <Leader>th :OmniSharpHighlightTypes<CR>
+
+    " The following commands are contextual, based on the cursor position.
+    autocmd FileType cs nnoremap <buffer> gd :OmniSharpGotoDefinition<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>fi :OmniSharpFindImplementations<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>fs :OmniSharpFindSymbol<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>fu :OmniSharpFindUsages<CR>
+
+    " Finds members in the current buffer
+    autocmd FileType cs nnoremap <buffer> <Leader>fm :OmniSharpFindMembers<CR>
+
+    autocmd FileType cs nnoremap <buffer> <Leader>fx :OmniSharpFixUsings<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>tt :OmniSharpTypeLookup<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>dc :OmniSharpDocumentation<CR>
+    autocmd FileType cs nnoremap <buffer> <C-\> :OmniSharpSignatureHelp<CR>
+    autocmd FileType cs inoremap <buffer> <C-\> <C-o>:OmniSharpSignatureHelp<CR>
+
+    " Navigate up and down by method/property/field
+    autocmd FileType cs nnoremap <buffer> <C-k> :OmniSharpNavigateUp<CR>
+    autocmd FileType cs nnoremap <buffer> <C-j> :OmniSharpNavigateDown<CR>
+  augroup END
+
+  " Contextual code actions (uses fzf, CtrlP or unite.vim when available)
+  nnoremap <Leader><Space> :OmniSharpGetCodeActions<CR>
+  " Run code actions with text selected in visual mode to extract method
+  xnoremap <Leader><Space> :call OmniSharp#GetCodeActions('visual')<CR>
+
+  " Rename with dialog
+  nnoremap <Leader>nm :OmniSharpRename<CR>
+  nnoremap <F2> :OmniSharpRename<CR>
+  " Rename without dialog - with cursor on the symbol to rename: `:Rename newname`
+  command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
+
+  nnoremap <Leader>cf :OmniSharpCodeFormat<CR>
+
+  " Start the omnisharp server for the current solution
+  nnoremap <Leader>ss :OmniSharpStartServer<CR>
+  nnoremap <Leader>sp :OmniSharpStopServer<CR>
+
+  " Enable snippet completion
+  " let g:OmniSharp_want_snippet=1
+endif
+
+
+"----------------------------------------------------------------------
 " 结束插件安装
 "----------------------------------------------------------------------
 call plug#end()
-
-"----------------------------------------------------------------------
-" YouCompleteMe 默认设置：YCM 需要你另外手动编译安装
-"----------------------------------------------------------------------
-
-" 禁用预览功能：扰乱视听
-let g:ycm_add_preview_to_completeopt = 0
-
-" 禁用诊断功能：我们用前面更好用的 ALE 代替
-let g:ycm_show_diagnostics_ui = 0
-let g:ycm_server_log_level = 'info'
-let g:ycm_min_num_identifier_candidate_chars = 2
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_complete_in_strings=1
-let g:ycm_key_invoke_completion = '<c-z>'
-set completeopt=menu,menuone,noselect
-
-" Python ycm 解释器
-let g:ycm_server_python_interpreter='/usr/bin/python3'
-
-" noremap <c-z> <NOP>
-
-" 两个字符自动触发语义补全
-let g:ycm_semantic_triggers =  {
-			\ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-			\ 'cs,lua,javascript': ['re!\w{2}'],
-			\ }
-
 
 "----------------------------------------------------------------------
 " Ycm 白名单（非名单内文件不启用 YCM），避免打开个 1MB 的 txt 分析半天
