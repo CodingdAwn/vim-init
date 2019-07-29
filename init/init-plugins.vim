@@ -166,6 +166,9 @@ if index(g:bundle_group, 'YCM') >= 0
   
   " 禁用诊断功能：我们用前面更好用的 ALE 代替
   let g:ycm_show_diagnostics_ui = 0
+  let g:ycm_enable_diagnostic_signs = 0
+  let g:ycm_enable_diagnostic_highlighting = 0
+  let g:ycm_echo_current_diagnostic = 0
   let g:ycm_server_log_level = 'info'
   let g:ycm_min_num_identifier_candidate_chars = 2
   let g:ycm_collect_identifiers_from_comments_and_strings = 1
