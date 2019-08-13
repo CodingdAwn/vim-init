@@ -117,8 +117,9 @@ if index(g:bundle_group, 'basic') >= 0
   " Git 支持
   Plug 'tpope/vim-fugitive'
 
-  " 翻译
-  Plug 'CodingdAwn/vim-translator'
+  " 翻译 自己写的还是太简单了 别人已经实现了一套好的多的 先用别人的把
+  "Plug 'CodingdAwn/vim-translator'
+  Plug 'voldikss/vim-translate-me'
 
   " 当前单词 下划线
   Plug 'itchyny/vim-cursorword'
@@ -166,9 +167,9 @@ if index(g:bundle_group, 'YCM') >= 0
   
   " 禁用诊断功能：我们用前面更好用的 ALE 代替
   let g:ycm_show_diagnostics_ui = 0
-  let g:ycm_enable_diagnostic_signs = 0
-  let g:ycm_enable_diagnostic_highlighting = 0
-  let g:ycm_echo_current_diagnostic = 0
+  "let g:ycm_enable_diagnostic_signs = 0
+  "let g:ycm_enable_diagnostic_highlighting = 0
+  "let g:ycm_echo_current_diagnostic = 0
   let g:ycm_server_log_level = 'info'
   let g:ycm_min_num_identifier_candidate_chars = 2
   let g:ycm_collect_identifiers_from_comments_and_strings = 1
@@ -454,15 +455,15 @@ if index(g:bundle_group, 'ale') >= 0
   let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
   let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
   let g:ale_c_cppcheck_options = ''
-  let g:ale_cpp_cppcheck_options = '--project=compile_commands.json'
+  let g:ale_cpp_cppcheck_options = ''
 
   let g:ale_linters.text = ['textlint', 'write-good', 'languagetool']
 
   " 如果没有 gcc 只有 clang 时（FreeBSD）
-  " if executable('gcc') == 0 && executable('clang')
-    " let g:ale_linters.c += ['clang']
-    " let g:ale_linters.cpp += ['clang']
-  " endif
+  if executable('gcc') == 0 && executable('clang')
+    let g:ale_linters.c += ['clang']
+    let g:ale_linters.cpp += ['clang']
+  endif
 endif
 
 
@@ -516,6 +517,10 @@ if index(g:bundle_group, 'leaderf') >= 0
     let g:Lf_WorkingDirectoryMode = 'Ac'
     let g:Lf_WindowHeight = 0.30
     let g:Lf_CacheDirectory = expand('~/.vim/cache')
+
+    " 每次启动leaderf时刷新缓存
+    let g:Lf_UseCache = 0
+    let g:Lf_UseMemoryCache = 0
 
     " 显示绝对路径
     let g:Lf_ShowRelativePath = 0
