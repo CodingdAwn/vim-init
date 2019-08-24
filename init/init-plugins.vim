@@ -9,7 +9,6 @@
 " vim: set ts=4 sw=4 tw=78 noet :
 
 
-
 "----------------------------------------------------------------------
 " 默认情况下的分组，可以再前面覆盖之
 "----------------------------------------------------------------------
@@ -184,6 +183,34 @@ if index(g:bundle_group, 'enhanced') >= 0
 
 	" indentLine
 	Plug 'Yggdroot/indentLine'
+endif
+
+
+"----------------------------------------------------------------------
+" python mode 
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'python-mode') >= 0
+	" python IDE
+	Plug 'python-mode/python-mode', { 'branch': 'develop' }
+	
+	" python-mode 设置
+	"
+	"
+	let g:pymode_python = 'python'
+
+	" 开启rope
+	let g:pymode_rope = 1
+
+	"显示python文档
+	let g:pymode_doc = 1
+	let g:pymode_doc_key = "K"
+
+	" 语法高亮
+	let g:pymode_syntax = 1
+	let g:pymode_syntax_all = 1
+
+	" 查找定义时使用新新窗口 之后看看怎么调整为tab
+  let g:pymode_rope_goto_definition_cmd = 'vnew'
 endif
 
 
@@ -659,6 +686,8 @@ if index(g:bundle_group, 'unity') >= 0
   let g:OmniSharp_highlight_types = 1
 
   let g:OmniSharp_translate_cygwin_wsl = 1
+	" Python ycm 解释器
+	let g:ycm_server_python_interpreter='/usr/bin/python'
 
   " debug log
   let g:OmniSharp_loglevel = 'debug'
