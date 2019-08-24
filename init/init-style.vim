@@ -68,6 +68,8 @@ if !has('nvim')
 	inoremap <Char-0x07F> <BS>
 	nnoremap <Char-0x07F> <BS>
 	
+	"colorscheme default
+	
 	" 鼠标
 	set mouse=a
 	
@@ -80,9 +82,8 @@ if !has('nvim')
 	endw
   endif
 else
-  colorscheme molokai
+  
 endif
-    
 
 
 "----------------------------------------------------------------------
