@@ -16,7 +16,7 @@
 if !exists('g:bundle_group')
 	let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes', 'textobj']
 	let g:bundle_group += ['tags', 'airline', 'nerdtree', 'ale', 'echodoc', 'YCM']
-	let g:bundle_group += ['leaderf', 'python-mode', 'cplusplus']
+	let g:bundle_group += ['leaderf', 'python-mode', 'cplusplus', 'lsp']
 endif
 
 
@@ -122,8 +122,9 @@ if index(g:bundle_group, 'basic') >= 0
 	" 使用 ALT+E 来选择窗口
 	nmap <m-e> <Plug>(choosewin)
 
-	" 翻译
-	Plug 'CodingdAwn/vim-translator'
+	" 翻译 发现别人写的更好 功能更多 自己这个真的只是练手
+	"Plug 'CodingdAwn/vim-translator'
+	Plug 'voldikss/vim-translate-me'
 	
 	" 当前单词 下划线
 	Plug 'itchyny/vim-cursorword'
@@ -209,6 +210,7 @@ if index(g:bundle_group, 'YCM') >= 0
 	
 	" Python ycm 解释器
 	let g:ycm_server_python_interpreter='/usr/bin/python3'
+	"let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
 	
 	" noremap <c-z> <NOP>
 	
@@ -219,6 +221,26 @@ if index(g:bundle_group, 'YCM') >= 0
 				\ }
 endif
 
+"----------------------------------------------------------------------
+" lsp
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'lsp') >= 0
+	"Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next' }
+
+	let g:LanguageClient_loadSettings = 1
+	let g:LanguageClient_diagnosticsEnable = 0
+	let g:LanguageClient_settingsPath = expand('~/.vim/languageclient.json')
+	let g:LanguageClient_selectionUI = 'quickfix'
+	let g:LanguageClient_diagnosticsList = v:null
+	let g:LanguageClient_hoverPreview = 'Never'
+	let g:LanguageClient_serverCommands = {}
+	let g:LanguageClient_serverCommands.c = ['cquery']
+	let g:LanguageClient_serverCommands.cpp = ['cquery']
+
+	noremap <leader>rd :call LanguageClient#textDocument_definition()<cr>
+	noremap <leader>rr :call LanguageClient#textDocument_references()<cr>
+	noremap <leader>rv :call LanguageClient#textDocument_hover()<cr>
+endif
 
 "----------------------------------------------------------------------
 " 自动生成 ctags/gtags，并提供自动索引功能
