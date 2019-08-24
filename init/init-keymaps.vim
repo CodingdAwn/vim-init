@@ -34,10 +34,12 @@ inoremap <c-_> <c-k>
 " 使用 SecureCRT/XShell 等终端软件需设置：Backspace sends delete
 " 详见：http://www.skywind.me/blog/archives/2021
 "----------------------------------------------------------------------
-noremap <C-h> <left>
-noremap <C-j> <down>
-noremap <C-k> <up>
-noremap <C-l> <right>
+
+"cmder下暂时不知道怎么解决 这几个快捷键 和backspace冲突
+"noremap <C-h> <left>
+"noremap <C-j> <down>
+"noremap <C-k> <up>
+"noremap <C-l> <right>
 inoremap <C-h> <left>
 inoremap <C-j> <down>
 inoremap <C-k> <up>
