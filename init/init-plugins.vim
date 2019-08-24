@@ -124,13 +124,26 @@ if index(g:bundle_group, 'basic') >= 0
   " 当前单词 下划线
   Plug 'itchyny/vim-cursorword'
 
+  " distraction-free writing in vim
+  Plug 'junegunn/goyo.vim'
+  
+  " relative line nunbers
+  Plug 'jeffkreeftmeijer/vim-numbertoggle'
+
   " 使用 ALT+E 来选择窗口
   nmap <m-e> <Plug>(choosewin)
 
   " 默认不显示 startify
   let g:startify_disable_at_vimenter = 0
   let g:startify_sesion_dir = '~/.vim/session'
-  set viminfo='100,n$HOME/.vim/files/info/viminfo'
+  " viminfo在neovim中是不支持的
+  if !has('nvim')
+	set viminfo='100,n$HOME/.vim/files/info/viminfo'
+  endif
+
+  if  has('nvim')
+    "let g:startify_sesion_dir = $XDG_DATA_HOME/nvim/session
+  endif
 
   " 使用 <space>ha 清除 errormarker 标注的错误
   noremap <silent><space>ha :RemoveErrorMarkers<cr>
