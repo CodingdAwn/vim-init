@@ -80,6 +80,8 @@ if !has('nvim')
 	endw
 	
   endif
+else
+  colorscheme molokai
 endif
     
 
