@@ -128,10 +128,30 @@ if index(g:bundle_group, 'basic') >= 0
 	" 当前单词 下划线
 	Plug 'itchyny/vim-cursorword'
 
+	" distraction-free writing in vim
+  Plug 'junegunn/goyo.vim'
+
+  " relative line nunbers
+  Plug 'jeffkreeftmeijer/vim-numbertoggle'
+
+  " vim markdown
+  Plug 'godlygeek/tabular'
+  Plug 'plasticboy/vim-markdown'
+  
+  " markdown 预览
+  Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+
 	" 默认不显示 startify
 	let g:startify_disable_at_vimenter = 0
 	let g:startify_session_dir = '~/.vim/session'
-	set viminfo='100,n$HOME/.vim/files/info/viminfo'
+ " viminfo在neovim中是不支持的
+  if !has('nvim')
+		set viminfo='100,n$HOME/.vim/files/info/viminfo'
+  endif
+
+  if  has('nvim')
+    "let g:startify_sesion_dir = $XDG_DATA_HOME/nvim/session
+  endif
 
 	" 使用 <space>ha 清除 errormarker 标注的错误
 	noremap <silent><space>ha :RemoveErrorMarkers<cr>
@@ -252,7 +272,7 @@ endif
 " lsp
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'lsp') >= 0
-	"Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next' }
+	Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next' }
 
 	let g:LanguageClient_loadSettings = 1
 	let g:LanguageClient_diagnosticsEnable = 0
@@ -261,8 +281,8 @@ if index(g:bundle_group, 'lsp') >= 0
 	let g:LanguageClient_diagnosticsList = v:null
 	let g:LanguageClient_hoverPreview = 'Never'
 	let g:LanguageClient_serverCommands = {}
-	let g:LanguageClient_serverCommands.c = ['cquery']
-	let g:LanguageClient_serverCommands.cpp = ['cquery']
+	let g:LanguageClient_serverCommands.c = ['clangd']
+	let g:LanguageClient_serverCommands.cpp = ['clangd']
 
 	noremap <leader>rd :call LanguageClient#textDocument_definition()<cr>
 	noremap <leader>rr :call LanguageClient#textDocument_references()<cr>
