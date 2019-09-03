@@ -16,6 +16,7 @@ if !exists('g:bundle_group')
 	let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes', 'textobj']
 	let g:bundle_group += ['tags', 'airline', 'nerdtree', 'ale', 'echodoc', 'YCM']
 	let g:bundle_group += ['leaderf', 'python-mode', 'cplusplus', 'lsp']
+	let g:bundle_group += ['markdown']
 endif
 
 
@@ -134,13 +135,6 @@ if index(g:bundle_group, 'basic') >= 0
   " relative line nunbers
   Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
-  " vim markdown
-  Plug 'godlygeek/tabular'
-  Plug 'plasticboy/vim-markdown'
-  
-  " markdown 预览
-  Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
-
 	" 默认不显示 startify
 	let g:startify_disable_at_vimenter = 0
 	let g:startify_session_dir = '~/.vim/session'
@@ -170,6 +164,19 @@ if index(g:bundle_group, 'basic') >= 0
 			\}
 endif
 
+
+"----------------------------------------------------------------------
+" markdown
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'markdown') >= 0
+  " vim markdown
+  Plug 'godlygeek/tabular'
+  Plug 'plasticboy/vim-markdown'
+  
+  " markdown 预览
+  Plug 'iamcco/mathjax-support-for-mkdp'
+  Plug 'iamcco/markdown-preview.vim'
+endif
 
 "----------------------------------------------------------------------
 " 增强插件
