@@ -67,11 +67,8 @@ if !has('nvim')
 	" 退格键支持
 	inoremap <Char-0x07F> <BS>
 	nnoremap <Char-0x07F> <BS>
+	"cnoremap <Char-0x07F> <BS>
 	
-	"colorscheme default
-	
-	" 鼠标
-	set mouse=a
 	
 	" 使用alt键
 	let c='a'
@@ -81,10 +78,9 @@ if !has('nvim')
 	  let c = nr2char(1+char2nr(c))
 	endw
   endif
-else
-  
 endif
 
+set mouse=a
 
 "----------------------------------------------------------------------
 " 状态栏设置

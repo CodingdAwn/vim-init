@@ -47,7 +47,8 @@ inoremap <C-l> <right>
 "----------------------------------------------------------------------
 " 命令模式的快速移动
 "----------------------------------------------------------------------
-"cmder下暂时不知道怎么解决 这几个快捷键 和backspace冲突
+"cmder下暂时不知道怎么解决 这几个快捷键 和backspace冲突 
+"确定问题了 还是bs在xterm上的问题 在style里修复了 普通和插入模式 没有修改命令模式
 "cnoremap <c-h> <left>
 cnoremap <c-j> <down>
 cnoremap <c-k> <up>
@@ -59,6 +60,11 @@ cnoremap <c-b> <left>
 cnoremap <c-d> <del>
 cnoremap <c-_> <c-k>
 
+"----------------------------------------------------------------------
+" rename by https://www.youtube.com/watch?v=D0T00ABs4js
+"----------------------------------------------------------------------
+nnoremap <Leader>k :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
+vnoremap <Leader>k y :%s/<C-r>"//gc<Left><Left><Left>
 
 "----------------------------------------------------------------------
 " <leader>+数字键 切换tab

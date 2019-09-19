@@ -16,7 +16,8 @@
 if !exists('g:bundle_group')
   let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes', 'textobj']
   let g:bundle_group += ['tags', 'airline', 'nerdtree', 'ale', 'echodoc', 'YCM']
-  let g:bundle_group += ['leaderf', 'python-mode', 'cplusplus', 'unity']
+  let g:bundle_group += ['leaderf', 'python-mode', 'cplusplus', 'unity', 'neo']
+  let g:bundle_group += ['markdown']
 endif
 
 
@@ -129,6 +130,7 @@ if index(g:bundle_group, 'basic') >= 0
   
   " relative line nunbers
   Plug 'jeffkreeftmeijer/vim-numbertoggle'
+  
 
   " 使用 ALT+E 来选择窗口
   nmap <m-e> <Plug>(choosewin)
@@ -165,6 +167,28 @@ if index(g:bundle_group, 'basic') >= 0
         \}
 endif
 
+"----------------------------------------------------------------------
+" markdown
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'markdown') >= 0
+  " vim markdown
+  Plug 'godlygeek/tabular'
+  Plug 'plasticboy/vim-markdown'
+  
+  " markdown预览
+  Plug 'iamcco/mathjax-support-for-mkdp'
+  Plug 'iamcco/markdown-preview.vim'
+endif
+
+"----------------------------------------------------------------------
+" neovim的一些基础配置
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'neo') >= 0
+  if has('nvim')
+    " neovim的终端插件
+	Plug 'kassio/neoterm'
+  endif
+endif
 
 "----------------------------------------------------------------------
 " YouCompleteMe
@@ -192,7 +216,7 @@ if index(g:bundle_group, 'YCM') >= 0
   
   " Python ycm 解释器
   let g:ycm_server_python_interpreter='C:\Users\dAwn_\AppData\Local\Programs\Python\Python37\python3.exe'
-  let g:ycm_global_ycm_extra_conf='~\.vim\.ycm_extra_conf.py'
+  "let g:ycm_global_ycm_extra_conf='~\.vim\.ycm_extra_conf.py'
   
   " noremap <c-z> <NOP>
   
@@ -212,7 +236,8 @@ if index(g:bundle_group, 'enhanced') >= 0
   Plug 'terryma/vim-expand-region'
 
   " 快速文件搜索
-  Plug 'junegunn/fzf'
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
 
   " 给不同语言提供字典补全，插入模式下 c-x c-k 触发
   Plug 'asins/vim-dict'
