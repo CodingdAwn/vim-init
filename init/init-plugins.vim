@@ -130,10 +130,16 @@ if index(g:bundle_group, 'basic') >= 0
   
   " relative line nunbers
   Plug 'jeffkreeftmeijer/vim-numbertoggle'
-  
+
+  " 输入快捷键时 提示
+  Plug 'liuchengxu/vim-which-key'
+  " 这里如果使用延后加载的话 autoload还没有加载 注册命令使用不了
+  "Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+  nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+  set timeoutlen=500
 
   " 使用 ALT+E 来选择窗口
-  nmap <m-e> <Plug>(choosewin)
+  nmap - <Plug>(choosewin)
 
   " 默认不显示 startify
   let g:startify_disable_at_vimenter = 0
@@ -212,6 +218,7 @@ if index(g:bundle_group, 'YCM') >= 0
   let g:ycm_collect_identifiers_from_comments_and_strings = 1
   let g:ycm_complete_in_strings=1
   let g:ycm_key_invoke_completion = '<c-z>'
+  let g:ycm_use_clangd = 0
   set completeopt=menu,menuone,noselect
   
   " Python ycm 解释器
@@ -311,6 +318,10 @@ if index(g:bundle_group, 'tags') >= 0
 
   " guntentags_plus 开启
   let g:gutentags_plus_switch = 1
+
+  " debug gutentags
+  "let g:gutentags_trace = 1
+
 endif
 
 
@@ -409,7 +420,8 @@ endif
 " NERDTree
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'nerdtree') >= 0
-  Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFocus', 'NERDTreeToggle', 'NERDTreeCWD', 'NERDTreeFind'] }
+  "Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFocus', 'NERDTreeToggle', 'NERDTreeCWD', 'NERDTreeFind'] }
+  Plug 'scrooloose/nerdtree'
   Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
   let g:NERDTreeMinimalUI = 1
   let g:NERDTreeDirArrows = 1
@@ -418,6 +430,7 @@ if index(g:bundle_group, 'nerdtree') >= 0
   noremap <space>no :NERDTreeFocus<cr>
   noremap <space>nm :NERDTreeMirror<cr>
   noremap <space>nt :NERDTreeToggle<cr>
+  let NERDTreeWinPos = 'right'
 endif
 
 
@@ -465,8 +478,8 @@ if index(g:bundle_group, 'ale') >= 0
 
   " 编辑不同文件类型需要的语法检查器
   let g:ale_linters = {
-        \ 'c': ['cppcheck'],
-        \ 'cpp': ['cppcheck'],
+        \ 'c': ['clangcheck'],
+        \ 'cpp': ['clangcheck'],
         \ 'python': ['pylint'],
         \ 'lua': ['luac'],
         \ 'go': ['go build', 'gofmt'],
@@ -474,6 +487,12 @@ if index(g:bundle_group, 'ale') >= 0
         \ 'javascript': ['eslint'],
         \ 'cs': ['OmniSharp'],
         \ }
+
+  " compile commands json
+  "let g:ale_c_build_dir
+  let g:ale_c_parse_compile_commands = 1
+  "let g:ale_c_parse_makefile = 1
+  let g:ale_c_clangtidy_checks = ['-*', 'cppcoreguidelines-*']
 
   " 获取 pylint, flake8 的配置文件，在 vim-init/tools/conf 下面
   function s:lintcfg(name)
@@ -492,8 +511,10 @@ if index(g:bundle_group, 'ale') >= 0
   let g:ale_python_pylint_options .= ' --disable=W'
   let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
   let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
-  let g:ale_c_cppcheck_options = ''
-  let g:ale_cpp_cppcheck_options = ''
+  let g:ale_c_cppcheck_options = '-f'
+  let g:ale_cpp_cppcheck_options = '-f'
+  let g:ale_c_clangcheck_options = '--extra-arg="-w"'
+  let g:ale_cpp_clangcheck_options = '--extra-arg="-w"'
 
   let g:ale_linters.text = ['textlint', 'write-good', 'languagetool']
 
@@ -622,6 +643,23 @@ if index(g:bundle_group, 'leaderf') >= 0
     " ALT+n 匹配 buffer
     noremap <m-n> :CtrlPBuffer<cr>
   endif
+
+  "rg命令 rg真的好用而且还快
+ " search word under cursor, the pattern is treated as regex, and enter normal mode directly
+  noremap <m-f> :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
+
+  " search word under cursor, the pattern is treated as regex,
+  " append the result to previous search results.
+  noremap <m-G> :<C-U><C-R>=printf("Leaderf! rg --append -e %s ", expand("<cword>"))<CR>
+
+  " search word under cursor literally only in current buffer
+  noremap <m-B> :<C-U><C-R>=printf("Leaderf! rg -F --current-buffer -e %s ", expand("<cword>"))<CR>
+
+  " search word under cursor literally in all listed buffers
+  noremap <m-D> :<C-U><C-R>=printf("Leaderf! rg -F --all-buffers -e %s ", expand("<cword>"))<CR>
+
+  " the same as above
+  noremap <Leader>a :<C-U><C-R>=printf("Leaderf! rg -e %s -g *.{h,cpp}", expand("<cword>"))<CR>
 endif
 
 "----------------------------------------------------------------------
@@ -633,8 +671,8 @@ if index(g:bundle_group, 'python-mode') >= 0
 
   " python-mode 设置
   let g:pymode_python = 'python3'
-  " 之后查查rope是做什么的
-  let g:pymode_rope = 1
+  " 之后查查rope是做什么的 打开ycm的build.py时 特别卡 先关掉
+  let g:pymode_rope = 0
 
   " 显示python文档
   let g:pymode_doc = 1
@@ -697,7 +735,7 @@ if index(g:bundle_group, 'unity') >= 0
   " let g:OmniSharp_translate_cygwin_wsl = 1
 
   " debug log
-  let g:OmniSharp_loglevel = 'debug'
+  "let g:OmniSharp_loglevel = 'debug'
 
   augroup omnisharp_commands
     autocmd!
