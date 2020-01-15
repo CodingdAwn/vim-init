@@ -143,7 +143,7 @@ if index(g:bundle_group, 'basic') >= 0
 
   " 默认不显示 startify
   let g:startify_disable_at_vimenter = 0
-  let g:startify_sesion_dir = '~/.vim/session'
+  let g:startify_session_dir = '~/.vim/session'
   " viminfo在neovim中是不支持的
   if !has('nvim')
 	set viminfo='100,n$HOME/.vim/files/info/viminfo'
@@ -284,6 +284,16 @@ if index(g:bundle_group, 'tags') >= 0
   " 支持光标移动到符号名上：<leader>cg 查看定义，<leader>cs 查看引用
   Plug 'skywind3000/gutentags_plus'
 
+  " 窗口预览
+  Plug 'skywind3000/vim-preview'
+  noremap <F11> :PreviwScroll -10<cr>
+  noremap <F12> :PreviwScroll 10<cr>
+  noremap <Leader>pe :PreviewGoto edit<cr>
+  noremap <Leader>pt :PreviewGoto tabedit<cr>
+  autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+  autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
+  noremap <c-]> :PreviewTag <cr>
+
   " 设定项目目录标志：除了 .git/.svn 外，还有 .root 文件
   let g:gutentags_project_root = ['.root']
   let g:gutentags_ctags_tagfile = '.tags'
@@ -296,7 +306,7 @@ if index(g:bundle_group, 'tags') >= 0
 
   " 如果有 ctags 可执行就允许动态生成 ctags 文件
   if executable('ctags')
-    "let g:gutentags_modules += ['ctags']
+    let g:gutentags_modules += ['ctags']
   endif
 
   " 如果有 gtags 可执行就允许动态生成 gtags 数据库
@@ -492,7 +502,7 @@ if index(g:bundle_group, 'ale') >= 0
   "let g:ale_c_build_dir
   let g:ale_c_parse_compile_commands = 1
   "let g:ale_c_parse_makefile = 1
-  let g:ale_c_clangtidy_checks = ['-*', 'cppcoreguidelines-*']
+  "let g:ale_c_clangtidy_checks = ['-*', 'cppcoreguidelines-*']
 
   " 获取 pylint, flake8 的配置文件，在 vim-init/tools/conf 下面
   function s:lintcfg(name)
@@ -672,7 +682,7 @@ if index(g:bundle_group, 'python-mode') >= 0
   " python-mode 设置
   let g:pymode_python = 'python3'
   " 之后查查rope是做什么的 打开ycm的build.py时 特别卡 先关掉
-  let g:pymode_rope = 0
+  let g:pymode_rope = 1
 
   " 显示python文档
   let g:pymode_doc = 1

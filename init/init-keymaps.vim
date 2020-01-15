@@ -34,14 +34,14 @@ inoremap <c-_> <c-k>
 " 使用 SecureCRT/XShell 等终端软件需设置：Backspace sends delete
 " 详见：http://www.skywind.me/blog/archives/2021
 "----------------------------------------------------------------------
-noremap <m-h> <left>
-noremap <m-j> <down>
-noremap <m-k> <up>
-noremap <m-l> <right>
-inoremap <m-h> <left>
-inoremap <m-j> <down>
-inoremap <m-k> <up>
-inoremap <m-l> <right>
+noremap <c-h> <left>
+noremap <c-j> <down>
+noremap <c-k> <up>
+noremap <c-l> <right>
+inoremap <c-h> <left>
+inoremap <c-j> <down>
+inoremap <c-k> <up>
+inoremap <c-l> <right>
 
 
 "----------------------------------------------------------------------
