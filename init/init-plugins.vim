@@ -140,18 +140,7 @@ if index(g:bundle_group, 'basic') >= 0
 	" 使用 ALT+E 来选择窗口
 	nmap <m-e> <Plug>(choosewin)
 
-	" 翻译 发现别人写的更好 功能更多 自己这个真的只是练手
-	"Plug 'CodingdAwn/vim-translator'
 	Plug 'voldikss/vim-translate-me'
-	
-	" 当前单词 下划线
-	Plug 'itchyny/vim-cursorword'
-
-	" distraction-free writing in vim
-  Plug 'junegunn/goyo.vim'
-
-  " relative line nunbers
-  Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
 	" 默认不显示 startify
 	let g:startify_disable_at_vimenter = 0
@@ -231,7 +220,11 @@ if index(g:bundle_group, 'YCM') >= 0
   set completeopt=menu,menuone,noselect
   
   " Python ycm 解释器
-  let g:ycm_server_python_interpreter='C:\Users\dAwn_\AppData\Local\Programs\Python\Python37\python3.exe'
+  if (g:is_windows)
+    let g:ycm_server_python_interpreter='C:\Users\dAwn_\AppData\Local\Programs\Python\Python37\python3.exe'
+  else
+    let g:ycm_server_python_interpreter='/usr/bin/python3'
+  endif
   "let g:ycm_global_ycm_extra_conf='~\.vim\.ycm_extra_conf.py'
   
   " noremap <c-z> <NOP>
@@ -241,19 +234,6 @@ if index(g:bundle_group, 'YCM') >= 0
         \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
         \ 'cs,lua,javascript': ['re!\w{2}'],
         \ }
-endif
-
-"----------------------------------------------------------------------
-" markdown
-"----------------------------------------------------------------------
-if index(g:bundle_group, 'markdown') >= 0
-  " vim markdown
-  Plug 'godlygeek/tabular'
-  Plug 'plasticboy/vim-markdown'
-  
-  " markdown 预览
-  Plug 'iamcco/mathjax-support-for-mkdp'
-  Plug 'iamcco/markdown-preview.vim'
 endif
 
 "----------------------------------------------------------------------
@@ -290,69 +270,6 @@ if index(g:bundle_group, 'enhanced') >= 0
 
 	" indentLine
 	Plug 'Yggdroot/indentLine'
-endif
-
-
-"----------------------------------------------------------------------
-" python mode 
-"----------------------------------------------------------------------
-if index(g:bundle_group, 'python-mode') >= 0
-	" python IDE
-	Plug 'python-mode/python-mode', { 'branch': 'develop' }
-	
-	" python-mode 设置
-	"
-	"
-	let g:pymode_python = 'python'
-
-	" 开启rope
-	let g:pymode_rope = 1
-
-	"显示python文档
-	let g:pymode_doc = 1
-	let g:pymode_doc_key = "K"
-
-	" 语法高亮
-	let g:pymode_syntax = 1
-	let g:pymode_syntax_all = 1
-
-	" 查找定义时使用新新窗口 之后看看怎么调整为tab
-  let g:pymode_rope_goto_definition_cmd = 'vnew'
-endif
-
-
-"----------------------------------------------------------------------
-" YouCompleteMe
-"----------------------------------------------------------------------
-if index(g:bundle_group, 'YCM') >= 0
-	Plug 'Valloric/YouCompleteMe'
-	
-	" .ycm_extra_conf.py生成
-	Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
-
-	" 禁用预览功能：扰乱视听
-	let g:ycm_add_preview_to_completeopt = 0
-	
-	" 禁用诊断功能：我们用前面更好用的 ALE 代替
-	let g:ycm_show_diagnostics_ui = 0
-	let g:ycm_server_log_level = 'info'
-	let g:ycm_min_num_identifier_candidate_chars = 2
-	let g:ycm_collect_identifiers_from_comments_and_strings = 1
-	let g:ycm_complete_in_strings=1
-	let g:ycm_key_invoke_completion = '<c-z>'
-	set completeopt=menu,menuone,noselect
-	
-	" Python ycm 解释器
-	let g:ycm_server_python_interpreter='/usr/bin/python3'
-	"let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
-	
-	" noremap <c-z> <NOP>
-	
-	" 两个字符自动触发语义补全
-	let g:ycm_semantic_triggers =  {
-				\ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-				\ 'cs,lua,javascript': ['re!\w{2}'],
-				\ }
 endif
 
 "----------------------------------------------------------------------
@@ -826,32 +743,6 @@ if index(g:bundle_group, 'cplusplus') >= 0
   let g:protodefprotogtter = '~\.vim\bundles\vim-protodef\pullproto.pl'
 endif
 
-" python mode 
-"----------------------------------------------------------------------
-if index(g:bundle_group, 'python-mode') >= 0
-	" python IDE
-	Plug 'python-mode/python-mode', { 'branch': 'develop' }
-	
-	" python-mode 设置
-	"
-	"
-	let g:pymode_python = 'python3'
-
-	" 开启rope
-	let g:pymode_rope = 1
-
-	"显示python文档
-	let g:pymode_doc = 1
-	let g:pymode_doc_key = "K"
-
-	" 语法高亮
-	let g:pymode_syntax = 1
-	let g:pymode_syntax_all = 1
-
-	" 查找定义时使用新新窗口 之后看看怎么调整为tab
-  let g:pymode_rope_goto_definition_cmd = 'vnew'
-endif
-
 "----------------------------------------------------------------------
 " c# and unity customer config
 "----------------------------------------------------------------------
@@ -867,7 +758,7 @@ if index(g:bundle_group, 'unity') >= 0
 
   let g:OmniSharp_translate_cygwin_wsl = 1
 	" Python ycm 解释器
-	let g:ycm_server_python_interpreter='/usr/bin/python'
+	"let g:ycm_server_python_interpreter='/usr/bin/python'
 
   " debug log
   let g:OmniSharp_loglevel = 'debug'

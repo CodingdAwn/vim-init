@@ -167,5 +167,11 @@ set wildignore+=*.msi,*.crx,*.deb,*.vfd,*.apk,*.ipa,*.bin,*.msu
 set wildignore+=*.gba,*.sfc,*.078,*.nds,*.smd,*.smc
 set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
 
-
-
+"----------------------------------------------------------------------
+" 设置当前平台
+"----------------------------------------------------------------------
+if (has("win32") || has("win64"))
+  let g:is_windows = 1
+else
+  let g:is_windows = 0
+endif
