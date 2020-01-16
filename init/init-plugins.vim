@@ -9,15 +9,14 @@
 " vim: set ts=4 sw=4 tw=78 noet :
 
 
-
 "----------------------------------------------------------------------
 " 默认情况下的分组，可以再前面覆盖之
 "----------------------------------------------------------------------
 if !exists('g:bundle_group')
-  let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes', 'textobj']
-  let g:bundle_group += ['tags', 'airline', 'nerdtree', 'ale', 'echodoc', 'YCM']
-  let g:bundle_group += ['leaderf', 'python-mode', 'cplusplus', 'unity', 'neo']
-  let g:bundle_group += ['markdown']
+	let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes', 'textobj']
+	let g:bundle_group += ['tags', 'airline', 'nerdtree', 'ale', 'echodoc', 'YCM']
+	let g:bundle_group += ['leaderf', 'python-mode', 'cplusplus', 'lsp', 'unity', 'neo']
+	let g:bundle_group += ['markdown']
 endif
 
 
@@ -138,15 +137,28 @@ if index(g:bundle_group, 'basic') >= 0
   nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
   set timeoutlen=500
 
-  " 使用 ALT+E 来选择窗口
-  nmap - <Plug>(choosewin)
+	" 使用 ALT+E 来选择窗口
+	nmap <m-e> <Plug>(choosewin)
 
-  " 默认不显示 startify
-  let g:startify_disable_at_vimenter = 0
-  let g:startify_session_dir = '~/.vim/session'
-  " viminfo在neovim中是不支持的
+	" 翻译 发现别人写的更好 功能更多 自己这个真的只是练手
+	"Plug 'CodingdAwn/vim-translator'
+	Plug 'voldikss/vim-translate-me'
+	
+	" 当前单词 下划线
+	Plug 'itchyny/vim-cursorword'
+
+	" distraction-free writing in vim
+  Plug 'junegunn/goyo.vim'
+
+  " relative line nunbers
+  Plug 'jeffkreeftmeijer/vim-numbertoggle'
+
+	" 默认不显示 startify
+	let g:startify_disable_at_vimenter = 0
+	let g:startify_session_dir = '~/.vim/session'
+ " viminfo在neovim中是不支持的
   if !has('nvim')
-	set viminfo='100,n$HOME/.vim/files/info/viminfo'
+		set viminfo='100,n$HOME/.vim/files/info/viminfo'
   endif
 
   if  has('nvim')
@@ -163,9 +175,6 @@ if index(g:bundle_group, 'basic') >= 0
   let g:signify_sign_delete_first_line = '‾'
   let g:signify_sign_change            = '~'
   let g:signify_sign_changedelete      = g:signify_sign_change
-
-  " 使用命令行翻译
-  " map <unique> <Leader>tr <Plug>Translator<CR>
 
   " git 仓库使用 histogram 算法进行 diff
   let g:signify_vcs_cmds = {
@@ -235,6 +244,19 @@ if index(g:bundle_group, 'YCM') >= 0
 endif
 
 "----------------------------------------------------------------------
+" markdown
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'markdown') >= 0
+  " vim markdown
+  Plug 'godlygeek/tabular'
+  Plug 'plasticboy/vim-markdown'
+  
+  " markdown 预览
+  Plug 'iamcco/mathjax-support-for-mkdp'
+  Plug 'iamcco/markdown-preview.vim'
+endif
+
+"----------------------------------------------------------------------
 " 增强插件
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'enhanced') >= 0
@@ -246,8 +268,9 @@ if index(g:bundle_group, 'enhanced') >= 0
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
 
-  " 给不同语言提供字典补全，插入模式下 c-x c-k 触发
-  Plug 'asins/vim-dict'
+	" 快速文件搜索
+	Plug '/usr/local/opt/fzf'
+	Plug 'junegunn/fzf.vim'
 
   " 使用 :FlyGrep 命令进行实时 grep
   Plug 'wsdjeg/FlyGrep.vim'
@@ -258,17 +281,100 @@ if index(g:bundle_group, 'enhanced') >= 0
   " 配对括号和引号自动补全
   Plug 'Raimondi/delimitMate'
 
-  " 提供 gist 接口
-  Plug 'lambdalisue/vim-gista', { 'on': 'Gista' }
+	" 提供 gist 接口
+	Plug 'lambdalisue/vim-gista', { 'on': 'Gista' }
+	
+	" ALT_+/- 用于按分隔符扩大缩小 v 选区
+	map <m-=> <Plug>(expand_region_expand)
+	map <m--> <Plug>(expand_region_shrink)
 
-  " ALT_+/- 用于按分隔符扩大缩小 v 选区
-  map <m-=> <Plug>(expand_region_expand)
-  map <m--> <Plug>(expand_region_shrink)
-
-  " intentLine
-  Plug 'Yggdroot/indentLine'
+	" indentLine
+	Plug 'Yggdroot/indentLine'
 endif
 
+
+"----------------------------------------------------------------------
+" python mode 
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'python-mode') >= 0
+	" python IDE
+	Plug 'python-mode/python-mode', { 'branch': 'develop' }
+	
+	" python-mode 设置
+	"
+	"
+	let g:pymode_python = 'python'
+
+	" 开启rope
+	let g:pymode_rope = 1
+
+	"显示python文档
+	let g:pymode_doc = 1
+	let g:pymode_doc_key = "K"
+
+	" 语法高亮
+	let g:pymode_syntax = 1
+	let g:pymode_syntax_all = 1
+
+	" 查找定义时使用新新窗口 之后看看怎么调整为tab
+  let g:pymode_rope_goto_definition_cmd = 'vnew'
+endif
+
+
+"----------------------------------------------------------------------
+" YouCompleteMe
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'YCM') >= 0
+	Plug 'Valloric/YouCompleteMe'
+	
+	" .ycm_extra_conf.py生成
+	Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+
+	" 禁用预览功能：扰乱视听
+	let g:ycm_add_preview_to_completeopt = 0
+	
+	" 禁用诊断功能：我们用前面更好用的 ALE 代替
+	let g:ycm_show_diagnostics_ui = 0
+	let g:ycm_server_log_level = 'info'
+	let g:ycm_min_num_identifier_candidate_chars = 2
+	let g:ycm_collect_identifiers_from_comments_and_strings = 1
+	let g:ycm_complete_in_strings=1
+	let g:ycm_key_invoke_completion = '<c-z>'
+	set completeopt=menu,menuone,noselect
+	
+	" Python ycm 解释器
+	let g:ycm_server_python_interpreter='/usr/bin/python3'
+	"let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
+	
+	" noremap <c-z> <NOP>
+	
+	" 两个字符自动触发语义补全
+	let g:ycm_semantic_triggers =  {
+				\ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+				\ 'cs,lua,javascript': ['re!\w{2}'],
+				\ }
+endif
+
+"----------------------------------------------------------------------
+" lsp
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'lsp') >= 0
+	"Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next' }
+
+	let g:LanguageClient_loadSettings = 1
+	let g:LanguageClient_diagnosticsEnable = 0
+	let g:LanguageClient_settingsPath = expand('~/.vim/languageclient.json')
+	let g:LanguageClient_selectionUI = 'quickfix'
+	let g:LanguageClient_diagnosticsList = v:null
+	let g:LanguageClient_hoverPreview = 'Never'
+	let g:LanguageClient_serverCommands = {}
+	let g:LanguageClient_serverCommands.c = ['clangd']
+	let g:LanguageClient_serverCommands.cpp = ['clangd']
+
+	noremap <leader>rd :call LanguageClient#textDocument_definition()<cr>
+	noremap <leader>rr :call LanguageClient#textDocument_references()<cr>
+	noremap <leader>rv :call LanguageClient#textDocument_hover()<cr>
+endif
 
 "----------------------------------------------------------------------
 " 自动生成 ctags/gtags，并提供自动索引功能
@@ -377,11 +483,8 @@ if index(g:bundle_group, 'filetypes') >= 0
   " C++ 语法高亮增强，支持 11/14/17 标准
   Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 
-  " 使用其他的语法高亮插件试试
-  "Plug 'jeaye/color_coded'
-
-  " 额外语法文件
-  Plug 'justinmk/vim-syntax-extra', { 'for': ['c', 'bison', 'flex', 'cpp'] }
+	" 额外语法文件
+	Plug 'justinmk/vim-syntax-extra', { 'for': ['c', 'bison', 'flex', 'cpp'] }
 
   " python 语法文件增强
   Plug 'vim-python/python-syntax', { 'for': ['python'] }
@@ -389,8 +492,8 @@ if index(g:bundle_group, 'filetypes') >= 0
   " rust 语法增强
   Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
-  " vim org-mode
-  Plug 'jceb/vim-orgmode', { 'for': 'org' }
+	" vim org-mode 
+	Plug 'jceb/vim-orgmode', { 'for': 'org' }
 
   " vim-cpp-enhanced-highlight c++语法高亮
   let g:cpp_class_scope_highlight = 1
@@ -401,28 +504,27 @@ if index(g:bundle_group, 'filetypes') >= 0
   let g:cpp_no_function_highlight = 1
 endif
 
-"----------------------------------------------------------------------
 " airline
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'airline') >= 0
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
-  let g:airline_left_sep = ''
-  let g:airline_left_alt_sep = ''
-  let g:airline_right_sep = ''
-  let g:airline_right_alt_sep = ''
-  let g:airline_powerline_fonts = 0
-  let g:airline_exclude_preview = 1
-  let g:airline_section_b = '%n'
-  let g:airline_theme='deus'
-  let g:airline#extensions#branch#enabled = 0
-  let g:airline#extensions#syntastic#enabled = 0
-  let g:airline#extensions#fugitiveline#enabled = 0
-  let g:airline#extensions#csv#enabled = 0
-  let g:airline#extensions#vimagit#enabled = 0
+	Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline-themes'
+	let g:airline_left_sep = ''
+	let g:airline_left_alt_sep = ''
+	let g:airline_right_sep = ''
+	let g:airline_right_alt_sep = ''
+	let g:airline_powerline_fonts = 0
+	let g:airline_exclude_preview = 1
+	let g:airline_section_b = '%n'
+	let g:airline_theme='deus'
+	let g:airline#extensions#branch#enabled = 0
+	let g:airline#extensions#syntastic#enabled = 0
+	let g:airline#extensions#fugitiveline#enabled = 0
+	let g:airline#extensions#csv#enabled = 0
+	let g:airline#extensions#vimagit#enabled = 0
 
-  " 显示搜索的索引 以及搜索到的总个数
-  Plug 'google/vim-searchindex'
+	" 显示搜索的索引 以及搜索到的总个数
+	Plug 'google/vim-searchindex'
 endif
 
 
@@ -534,7 +636,6 @@ if index(g:bundle_group, 'ale') >= 0
     let g:ale_linters.cpp += ['clang']
   endif
 endif
-
 
 "----------------------------------------------------------------------
 " echodoc：搭配 YCM/deoplete 在底部显示函数参数
@@ -725,6 +826,32 @@ if index(g:bundle_group, 'cplusplus') >= 0
   let g:protodefprotogtter = '~\.vim\bundles\vim-protodef\pullproto.pl'
 endif
 
+" python mode 
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'python-mode') >= 0
+	" python IDE
+	Plug 'python-mode/python-mode', { 'branch': 'develop' }
+	
+	" python-mode 设置
+	"
+	"
+	let g:pymode_python = 'python3'
+
+	" 开启rope
+	let g:pymode_rope = 1
+
+	"显示python文档
+	let g:pymode_doc = 1
+	let g:pymode_doc_key = "K"
+
+	" 语法高亮
+	let g:pymode_syntax = 1
+	let g:pymode_syntax_all = 1
+
+	" 查找定义时使用新新窗口 之后看看怎么调整为tab
+  let g:pymode_rope_goto_definition_cmd = 'vnew'
+endif
+
 "----------------------------------------------------------------------
 " c# and unity customer config
 "----------------------------------------------------------------------
@@ -738,14 +865,12 @@ if index(g:bundle_group, 'unity') >= 0
   "Fetch semantic type/interface/identifier names on BufEnter and highlight them"
   let g:OmniSharp_highlight_types = 1
 
-  " Tell ALE to use OmniSharp for linting C# files, and no other linters.
-  " let g:ale_linters = { 'cs': ['OmniSharp'] }
-
-  "
-  " let g:OmniSharp_translate_cygwin_wsl = 1
+  let g:OmniSharp_translate_cygwin_wsl = 1
+	" Python ycm 解释器
+	let g:ycm_server_python_interpreter='/usr/bin/python'
 
   " debug log
-  "let g:OmniSharp_loglevel = 'debug'
+  let g:OmniSharp_loglevel = 'debug'
 
   augroup omnisharp_commands
     autocmd!
@@ -784,9 +909,9 @@ if index(g:bundle_group, 'unity') >= 0
   augroup END
 
   " Contextual code actions (uses fzf, CtrlP or unite.vim when available)
-  nnoremap <Leader><Space> :OmniSharpGetCodeActions<CR>
+  "nnoremap <Leader><Space> :OmniSharpGetCodeActions<CR>
   " Run code actions with text selected in visual mode to extract method
-  xnoremap <Leader><Space> :call OmniSharp#GetCodeActions('visual')<CR>
+  "xnoremap <Leader><Space> :call OmniSharp#GetCodeActions('visual')<CR>
 
   " Rename with dialog
   nnoremap <Leader>nm :OmniSharpRename<CR>
@@ -802,8 +927,8 @@ if index(g:bundle_group, 'unity') >= 0
 
   " Enable snippet completion
   " let g:OmniSharp_want_snippet=1
-
 endif
+
 "----------------------------------------------------------------------
 " 结束插件安装
 "----------------------------------------------------------------------
