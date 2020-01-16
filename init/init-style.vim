@@ -13,6 +13,9 @@
 " 显示设置
 "----------------------------------------------------------------------
 
+" gvim启动时最大化
+autocmd GUIEnter * simalt ~x
+
 " 总是显示状态栏
 set laststatus=2
 
@@ -52,6 +55,34 @@ set t_Co=256
 " 设置颜色主题，会在所有 runtimepaths 的 colors 目录寻找同名配置
 "color desert256
 colorscheme molokai
+
+if !has('nvim')
+  if !has("gui_running")
+	" 支持256
+	"set term=xterm
+  set term=pcansi
+
+	set t_Co=256
+	"let &t_AB="\e[48;5;%dm"
+	"let &t_AF="\e[38;5;%dm"
+	
+	" 退格键支持
+	inoremap <Char-0x07F> <BS>
+	"nnoremap <Char-0x07F> <BS>
+	"cnoremap <Char-0x07F> <BS>
+	
+	
+	" 使用alt键
+	let c='a'
+	while c <= 'z'
+	  exec "set <A-".c.">=\e".c
+	  exec "imap \e".c." <A-".c.">"
+	  let c = nr2char(1+char2nr(c))
+	endw
+  endif
+endif
+
+set mouse=a
 
 "----------------------------------------------------------------------
 " 状态栏设置

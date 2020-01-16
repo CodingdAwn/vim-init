@@ -49,5 +49,8 @@ LoadScript init/init-style.vim
 " 自定义按键
 LoadScript init/init-keymaps.vim
 
+" 加载whichkey
+LoadScript init/init-whichkey.vim
 
-
+" 加载 自己的一些特殊处理 包括快键键 或者 一些测试
+LoadScript init/init-special.vim

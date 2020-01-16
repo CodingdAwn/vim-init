@@ -20,7 +20,10 @@ set sw=2
 set ts=2
 
 " 禁止展开 tab (noexpandtab)
-set noet
+" set noet
+
+" 使用空格代替tab
+set expandtab
 
 " 如果后面设置了 expandtab 那么展开 tab 为多少字符
 set softtabstop=2
@@ -31,6 +34,7 @@ augroup PythonTab
 	" 如果你需要 python 里用 tab，那么反注释下面这行字，否则vim会在打开py文件
 	" 时自动设置成空格缩进。
 	"au FileType python setlocal shiftwidth=4 tabstop=4 noexpandtab
+  au FileType python setlocal shiftwidth=4 tabstop=4 expandtab
 augroup END
 
 

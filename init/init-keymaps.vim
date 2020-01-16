@@ -16,7 +16,7 @@
 " vim: set ts=4 sw=4 tw=78 noet :
 
 "----------------------------------------------------------------------
-" 设置leader键
+" Leader Key
 "----------------------------------------------------------------------
 let mapleader = " "
 
@@ -34,20 +34,22 @@ inoremap <c-_> <c-k>
 " 使用 SecureCRT/XShell 等终端软件需设置：Backspace sends delete
 " 详见：http://www.skywind.me/blog/archives/2021
 "----------------------------------------------------------------------
-noremap <C-h> <left>
-noremap <C-j> <down>
-noremap <C-k> <up>
-noremap <C-l> <right>
-inoremap <C-h> <left>
-inoremap <C-j> <down>
-inoremap <C-k> <up>
-inoremap <C-l> <right>
+noremap <c-h> <left>
+noremap <c-j> <down>
+noremap <c-k> <up>
+noremap <c-l> <right>
+inoremap <c-h> <left>
+inoremap <c-j> <down>
+inoremap <c-k> <up>
+inoremap <c-l> <right>
 
 
 "----------------------------------------------------------------------
 " 命令模式的快速移动
 "----------------------------------------------------------------------
-cnoremap <c-h> <left>
+"cmder下暂时不知道怎么解决 这几个快捷键 和backspace冲突 
+"确定问题了 还是bs在xterm上的问题 在style里修复了 普通和插入模式 没有修改命令模式
+"cnoremap <c-h> <left>
 cnoremap <c-j> <down>
 cnoremap <c-k> <up>
 cnoremap <c-l> <right>
@@ -58,6 +60,11 @@ cnoremap <c-b> <left>
 cnoremap <c-d> <del>
 cnoremap <c-_> <c-k>
 
+"----------------------------------------------------------------------
+" rename by https://www.youtube.com/watch?v=D0T00ABs4js
+"----------------------------------------------------------------------
+nnoremap <Leader>k :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
+vnoremap <Leader>k y :%s/<C-r>"//gc<Left><Left><Left>
 
 "----------------------------------------------------------------------
 " <leader>+数字键 切换tab
