@@ -223,9 +223,9 @@ if index(g:bundle_group, 'YCM') >= 0
   if (g:is_windows)
     let g:ycm_server_python_interpreter='C:\Users\dAwn_\AppData\Local\Programs\Python\Python37\python3.exe'
   else
-    let g:ycm_server_python_interpreter='/usr/bin/python3'
+    let g:ycm_server_python_interpreter='/usr/local/bin/python3'
   endif
-  "let g:ycm_global_ycm_extra_conf='~\.vim\.ycm_extra_conf.py'
+  let g:ycm_global_ycm_extra_conf='~\.vim\.ycm_extra_conf.py'
   
   " noremap <c-z> <NOP>
   
