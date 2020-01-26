@@ -138,7 +138,7 @@ if index(g:bundle_group, 'basic') >= 0
   set timeoutlen=500
 
 	" 使用 ALT+E 来选择窗口
-	nmap <m-e> <Plug>(choosewin)
+	nmap - <Plug>(choosewin)
 
 	Plug 'voldikss/vim-translate-me'
 
