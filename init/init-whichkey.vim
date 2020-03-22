@@ -1,5 +1,7 @@
+call which_key#register('<Space>', "g:which_key_map")
 nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
-nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
+vnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+set timeoutlen=500
 
 let g:which_key_map = {}
 
@@ -17,6 +19,21 @@ let g:which_key_map.c = {
       \ 'f' : 'Find this file',
       \ 'i' : 'Find files #including this file',
       \ 'a' : 'Find places where this symbol is assigned a value',
+      \ }
+
+" =======================================================
+" coc
+" =======================================================
+let g:which_key_map.o = {
+      \ 'name' : 'coc',
+      \ 'd' : 'diagostics',
+      \ 'e' : 'extensions',
+      \ 'm' : 'commands',
+      \ 'o' : 'outline',
+      \ 's' : 'symbols',
+      \ 'j' : 'coc next',
+      \ 'k' : 'coc prev',
+      \ 'p' : 'coc list resume',
       \ }
 
 " =======================================================
@@ -83,4 +100,4 @@ let g:which_key_map.i = {
       \ }
 
 " 注册
-call which_key#register('<Space>', "g:which_key_map")
+"call which_key#register('<Space>', "g:which_key_map")
