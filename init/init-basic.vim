@@ -14,6 +14,10 @@
 " 基础设置
 "----------------------------------------------------------------------
 
+" Leader Key 之前是放在keymap中加载的 keymap加载比较靠后 导致很多leader的map失
+" 效 之前查过很多次 终于好了！！
+let g:mapleader = "\<Space>"
+
 " 禁用 vi 兼容模式
 set nocompatible
 
