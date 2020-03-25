@@ -491,7 +491,7 @@ endif
 " ale：动态语法检查
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'ale') >= 0
-  Plug 'w0rp/ale'
+  "Plug 'w0rp/ale'
 
   " 设定延迟和提示信息
   let g:ale_completion_delay = 500
