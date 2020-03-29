@@ -254,10 +254,7 @@ if index(g:bundle_group, 'enhanced') >= 0
   " 快速文件搜索
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
-
-	" 快速文件搜索
-	Plug '/usr/local/opt/fzf'
-	Plug 'junegunn/fzf.vim'
+  set rtp+=/usr/local/opt/fzf
 
   " 使用 :FlyGrep 命令进行实时 grep
   Plug 'wsdjeg/FlyGrep.vim'
@@ -322,7 +319,7 @@ if index(g:bundle_group, 'tags') >= 0
   noremap <Leader>pt :PreviewGoto tabedit<cr>
   autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
   autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
-  noremap <c-]> :PreviewTag <cr>
+  noremap <m-]> :PreviewTag <cr>
 
   " 设定项目目录标志：除了 .git/.svn 外，还有 .root 文件
   let g:gutentags_project_root = ['.root']
