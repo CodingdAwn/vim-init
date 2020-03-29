@@ -148,6 +148,9 @@ if has('folding')
 	set foldlevel=99
 endif
 
+" treat words with dash as a word in vim
+"set iskeyword+=-
+
 
 "----------------------------------------------------------------------
 " 文件搜索和补全时忽略下面扩展名

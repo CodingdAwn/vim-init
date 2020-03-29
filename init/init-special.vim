@@ -29,19 +29,19 @@ function ToTmux()
   exec dest_path
 endfunction
 
-" where is my memo directory? how to find it
-function ToMemo()
-  let dest_path = 'e ' . '~/Documents/Documents/memo.md'
+" where is my todo memo directory? how to find it
+function ToDoList()
+  let dest_path = 'e ' . '~/Documents/todo_list/memo.md'
   exec dest_path
 endfunction
 
 let s:arg_vim_plug = '--vimplug'
 let s:arg_zsh = '--zsh'
 let s:arg_tumx = '--tmux'
-let s:arg_memo = '--memo'
+let s:arg_todo = '--todo'
 
 function OpenParseArguments(ArgLead, CmdLine, CursorPos) abort
-  return [s:arg_vim_plug, s:arg_zsh, s:arg_tumx, s:arg_memo]
+  return [s:arg_vim_plug, s:arg_zsh, s:arg_tumx, s:arg_todo]
 endfunction
 
 function OpenWithArgument(arg)
@@ -51,8 +51,8 @@ function OpenWithArgument(arg)
     call ToZsh()
   elseif a:arg == s:arg_tumx
     call ToTmux()
-  elseif a:arg == s:arg_memo
-    call ToMemo()
+  elseif a:arg == s:arg_todo
+    call ToDoList()
   endif
 endfunction
 
