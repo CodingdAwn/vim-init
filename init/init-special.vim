@@ -38,7 +38,7 @@ endfunction
 let s:arg_vim_plug = '--vimplug'
 let s:arg_zsh = '--zsh'
 let s:arg_tumx = '--tmux'
-let s:arg_memo '--memo'
+let s:arg_memo = '--memo'
 
 function OpenParseArguments(ArgLead, CmdLine, CursorPos) abort
   return [s:arg_vim_plug, s:arg_zsh, s:arg_tumx, s:arg_memo]
