@@ -16,7 +16,7 @@ if !exists('g:bundle_group')
 	let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes', 'textobj']
 	let g:bundle_group += ['tags', 'airline', 'nerdtree', 'ale', 'echodoc', 'YCM']
 	let g:bundle_group += ['leaderf', 'python-mode', 'cplusplus', 'lsp', 'unity', 'neo']
-	let g:bundle_group += ['markdown', 'cmake', 'coc']
+	let g:bundle_group += ['markdown', 'cmake', 'coc', 'myself']
 endif
 
 
@@ -968,6 +968,13 @@ if index(g:bundle_group, 'unity') >= 0
 
   " Enable snippet completion
   " let g:OmniSharp_want_snippet=1
+endif
+
+"----------------------------------------------------------------------
+" vim script by dawn
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'myself') >= 0
+  Plug 'CodingdAwn/vim-memo'
 endif
 
 "----------------------------------------------------------------------
