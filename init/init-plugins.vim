@@ -116,6 +116,8 @@ if index(g:bundle_group, 'basic') >= 0
 
   " Git 支持
   Plug 'tpope/vim-fugitive'
+  " make fugitive async
+  command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 
   " 翻译 自己写的还是太简单了 别人已经实现了一套好的多的 先用别人的把
   "Plug 'CodingdAwn/vim-translator'
