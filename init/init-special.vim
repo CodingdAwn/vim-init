@@ -14,6 +14,8 @@
 " 因为现在vim使用的还不熟练 所以经常出现一些vim的问题 经常想要迅速打开某个vim
 " 配置文件 
 
+let s:todo_list_path = '~/.vim/bundles/vim-memo/todo_list'
+
 function ToVimPlug()
   let dest_path = 'e ' . '~/.vim/vim-init/init/init-plugins.vim'
   exec dest_path
@@ -29,9 +31,9 @@ function ToTmux()
   exec dest_path
 endfunction
 
-" where is my todo memo directory? how to find it
+" where is my todo memo directory? how to find it ----fixed
 function ToDoList()
-  let dest_path = 'e ' . '~/Documents/todo_list/memo.md'
+  let dest_path = 'e ' . s:todo_list_path . '/memo.md'
   exec dest_path
 endfunction
 
