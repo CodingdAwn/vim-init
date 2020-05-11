@@ -7,7 +7,7 @@
 "======================================================================
 
 "----------------------------------------------------------------------
-" 
+" 快速打开各种配置文件
 "----------------------------------------------------------------------
 
 " 先设置一些快捷键吧 
@@ -59,4 +59,14 @@ function OpenWithArgument(arg)
 endfunction
 
 command! -nargs=1 -bang -complete=customlist,OpenParseArguments OpenCustomFile call OpenWithArgument(<q-args>)
+
+"----------------------------------------------------------------------
+" 一些快捷操作
+"----------------------------------------------------------------------
+
+" 将windows换行符转换成unix的
+function TLF()
+  exec ':%s/$//g'
+endfunction
+command! -nargs=0 -bang TransferLF call TLF()
 
