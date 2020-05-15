@@ -99,5 +99,3 @@ let g:which_key_map.i = {
       \ 'name' : 'a.vim',
       \ }
 
-" 注册
-"call which_key#register('<Space>', "g:which_key_map")
