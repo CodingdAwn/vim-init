@@ -81,6 +81,7 @@ let g:which_key_map.t = {
       \ 'r' : 'vim-translate-me replace current word',
       \ 't' : 'vim-translate-me current word with message',
       \ 'w' : 'vim-translate-me float window',
+      \ 'x' : 'vim-translate-me translate clipboard text',
       \ }
 
 " =======================================================

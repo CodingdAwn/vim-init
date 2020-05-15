@@ -16,7 +16,7 @@ if !exists('g:bundle_group')
 	let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes', 'textobj']
 	let g:bundle_group += ['tags', 'airline', 'nerdtree', 'ale', 'echodoc', 'YCM']
 	let g:bundle_group += ['leaderf', 'python-mode', 'cplusplus', 'lsp', 'unity', 'neo']
-	let g:bundle_group += ['markdown', 'cmake', 'coc', 'myself']
+	let g:bundle_group += ['markdown', 'cmake', 'coc', 'myself', 'translator']
 endif
 
 
@@ -119,10 +119,6 @@ if index(g:bundle_group, 'basic') >= 0
   " make fugitive async
   command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 
-  " 翻译 自己写的还是太简单了 别人已经实现了一套好的多的 先用别人的把
-  "Plug 'CodingdAwn/vim-translator'
-  Plug 'voldikss/vim-translate-me'
-
   " 当前单词 下划线
   Plug 'itchyny/vim-cursorword'
 
@@ -139,8 +135,6 @@ if index(g:bundle_group, 'basic') >= 0
 
 	" 使用 ALT+E 来选择窗口
 	nmap - <Plug>(choosewin)
-
-	Plug 'voldikss/vim-translate-me'
 
 	" 默认不显示 startify
 	let g:startify_disable_at_vimenter = 0
@@ -747,6 +741,32 @@ if index(g:bundle_group, 'cplusplus') >= 0
 
   " 设置脚本路径
   let g:protodefprotogtter = '~\.vim\bundles\vim-protodef\pullproto.pl'
+endif
+
+"----------------------------------------------------------------------
+" translator
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'translator') >= 0
+  Plug 'voldikss/vim-translate-me'
+
+  " Echo translation in the cmdline
+  nmap <silent> <Leader>tt <Plug>Translate
+  vmap <silent> <Leader>tt <Plug>TranslateV
+  " Display translation in a window
+  nmap <silent> <Leader>tw <Plug>TranslateW
+  vmap <silent> <Leader>tw <Plug>TranslateWV
+  " Replace the text with translation
+  nmap <silent> <Leader>tr <Plug>TranslateR
+  vmap <silent> <Leader>tr <Plug>TranslateRV
+  " Translate the text in clipboard
+  nmap <silent> <Leader>tx <Plug>TranslateX
+
+  " proxy 走代理还得装python的库
+  " let g:translator_proxy_url = 'socks5://127.0.0.1:1080'
+
+  " default engine
+  let g:translator_default_engines = ['youdao']
+
 endif
 
 "----------------------------------------------------------------------
