@@ -64,7 +64,7 @@ command! -nargs=1 -bang -complete=customlist,OpenParseArguments OpenCustomFile c
 " 一些快捷操作
 "----------------------------------------------------------------------
 
-" 将windows换行符转换成unix的
+" 将windows换行符转换成unix的 ctrl-v ctrl-m打出^M
 function TLF()
   exec ':%s/$//g'
 endfunction
