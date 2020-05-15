@@ -848,7 +848,7 @@ if index(g:bundle_group, 'coc') >= 0
   " Remap keys for applying codeAction to the current line.
   "nmap <leader>cc  <Plug>(coc-codeaction)
   " Apply AutoFix to problem on the current line.
-  "nmap <leader>cf  <Plug>(coc-fix-current)
+  nmap <leader>qf  <Plug>(coc-fix-current)
 
   " Introduce function text object
   " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
