@@ -15,7 +15,7 @@
 if !exists('g:bundle_group')
 	let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes', 'textobj']
 	let g:bundle_group += ['tags', 'airline', 'nerdtree', 'ale', 'echodoc', 'YCM']
-	let g:bundle_group += ['leaderf', 'python-mode', 'cplusplus', 'lsp', 'unity', 'neo']
+	let g:bundle_group += ['leaderf', 'python-mode', 'cplusplus', 'neo', 'unity']
 	let g:bundle_group += ['markdown', 'cmake', 'coc', 'myself', 'translator']
 endif
 
@@ -270,27 +270,6 @@ if index(g:bundle_group, 'enhanced') >= 0
 
 	" indentLine
 	Plug 'Yggdroot/indentLine'
-endif
-
-"----------------------------------------------------------------------
-" lsp
-"----------------------------------------------------------------------
-if index(g:bundle_group, 'lsp') >= 0
-	"Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next' }
-
-	let g:LanguageClient_loadSettings = 1
-	let g:LanguageClient_diagnosticsEnable = 0
-	let g:LanguageClient_settingsPath = expand('~/.vim/languageclient.json')
-	let g:LanguageClient_selectionUI = 'quickfix'
-	let g:LanguageClient_diagnosticsList = v:null
-	let g:LanguageClient_hoverPreview = 'Never'
-	let g:LanguageClient_serverCommands = {}
-	let g:LanguageClient_serverCommands.c = ['clangd']
-	let g:LanguageClient_serverCommands.cpp = ['clangd']
-
-	noremap <leader>rd :call LanguageClient#textDocument_definition()<cr>
-	noremap <leader>rr :call LanguageClient#textDocument_references()<cr>
-	noremap <leader>rv :call LanguageClient#textDocument_hover()<cr>
 endif
 
 "----------------------------------------------------------------------
@@ -922,74 +901,101 @@ if index(g:bundle_group, 'unity') >= 0
   " vim omnicompletion for c#
   Plug 'OmniSharp/omnisharp-vim'
 
-  " Timeout in seconds to wait for a reponse from the server"
+  " Note: this is required for the plugin to work
+  filetype indent plugin on
+  
+  " Use the stdio OmniSharp-roslyn server
+  let g:OmniSharp_server_stdio = 1
+  
+  " Set the type lookup function to use the preview window instead of echoing it
+  "let g:OmniSharp_typeLookupInPreview = 1
+  
+  " Timeout in seconds to wait for a response from the server
   let g:OmniSharp_timeout = 5
+  
+  " Don't autoselect first omnicomplete option, show options even if there is only
+  " one (so the preview documentation is accessible). Remove 'preview', 'popup'
+  " and 'popuphidden' if you don't want to see any documentation whatsoever.
+  " Note that neovim does not support `popuphidden` or `popup` yet: 
+  " https://github.com/neovim/neovim/issues/10996
 
-  "Fetch semantic type/interface/identifier names on BufEnter and highlight them"
-  let g:OmniSharp_highlight_types = 1
+  if !has('nvim')
+    "set completeopt=longest,menuone,preview,popuphidden
+  endif
+  
+  " Highlight the completion documentation popup background/foreground the same as
+  " the completion menu itself, for better readability with highlighted
+  " documentation.
 
-  let g:OmniSharp_translate_cygwin_wsl = 1
-	" Python ycm 解释器
-	"let g:ycm_server_python_interpreter='/usr/bin/python'
-
-  " debug log
-  let g:OmniSharp_loglevel = 'debug'
-
+  if !has('nvim')
+    "set completepopup=highlight:Pmenu,border:off
+  endif
+  
+  " Fetch full documentation during omnicomplete requests.
+  " By default, only Type/Method signatures are fetched. Full documentation can
+  " still be fetched when you need it with the :OmniSharpDocumentation command.
+  let g:omnicomplete_fetch_full_documentation = 1
+  
+  " Set desired preview window height for viewing documentation.
+  " You might also want to look at the echodoc plugin.
+  set previewheight=5
+  
+  " Tell ALE to use OmniSharp for linting C# files, and no other linters.
+  let g:ale_linters = { 'cs': ['OmniSharp'] }
+  
+  " Update semantic highlighting on BufEnter, InsertLeave and TextChanged
+  let g:OmniSharp_highlight_types = 3
+  
   augroup omnisharp_commands
-    autocmd!
+      autocmd!
+  
+      " Show type information automatically when the cursor stops moving.
+      " Note that the type is echoed to the Vim command line, and will overwrite
+      " any other messages in this space including e.g. ALE linting messages.
+      autocmd CursorHold *.cs OmniSharpTypeLookup
+  
+      " The following commands are contextual, based on the cursor position.
+      autocmd FileType cs nnoremap <buffer> gd :OmniSharpGotoDefinition<CR>
+      autocmd FileType cs nnoremap <buffer> <Leader>fi :OmniSharpFindImplementations<CR>
+      autocmd FileType cs nnoremap <buffer> <Leader>fs :OmniSharpFindSymbol<CR>
+      autocmd FileType cs nnoremap <buffer> <Leader>fu :OmniSharpFindUsages<CR>
+  
+      " Finds members in the current buffer
+      autocmd FileType cs nnoremap <buffer> <Leader>fm :OmniSharpFindMembers<CR>
 
-    " When Syntastic is available but not ALE, automatic syntax check on events
-    " (TextChanged requires Vim 7.4)
-    " autocmd BufEnter,TextChanged,InsertLeave *.cs SyntasticCheck
+      autocmd FileType cs nnoremap <buffer> <Leader>fx :OmniSharpFixUsings<CR>
+      autocmd FileType cs nnoremap <buffer> <Leader>tt :OmniSharpTypeLookup<CR>
+      autocmd FileType cs nnoremap <buffer> <Leader>dc :OmniSharpDocumentation<CR>
+      autocmd FileType cs nnoremap <buffer> <C-\> :OmniSharpSignatureHelp<CR>
+      autocmd FileType cs inoremap <buffer> <C-\> <C-o>:OmniSharpSignatureHelp<CR>
 
-    " Show type information automatically when the cursor stops moving
-    autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
-
-    " Update the highlighting whenever leaving insert mode
-    autocmd InsertLeave *.cs call OmniSharp#HighlightBuffer()
-
-    " Alternatively, use a mapping to refresh highlighting for the current buffer
-    autocmd FileType cs nnoremap <buffer> <Leader>th :OmniSharpHighlightTypes<CR>
-
-    " The following commands are contextual, based on the cursor position.
-    autocmd FileType cs nnoremap <buffer> gd :OmniSharpGotoDefinition<CR>
-    autocmd FileType cs nnoremap <buffer> <Leader>fi :OmniSharpFindImplementations<CR>
-    autocmd FileType cs nnoremap <buffer> <Leader>fs :OmniSharpFindSymbol<CR>
-    autocmd FileType cs nnoremap <buffer> <Leader>fu :OmniSharpFindUsages<CR>
-
-    " Finds members in the current buffer
-    autocmd FileType cs nnoremap <buffer> <Leader>fm :OmniSharpFindMembers<CR>
-
-    autocmd FileType cs nnoremap <buffer> <Leader>fx :OmniSharpFixUsings<CR>
-    autocmd FileType cs nnoremap <buffer> <Leader>tt :OmniSharpTypeLookup<CR>
-    autocmd FileType cs nnoremap <buffer> <Leader>dc :OmniSharpDocumentation<CR>
-    autocmd FileType cs nnoremap <buffer> <C-\> :OmniSharpSignatureHelp<CR>
-    autocmd FileType cs inoremap <buffer> <C-\> <C-o>:OmniSharpSignatureHelp<CR>
-
-    " Navigate up and down by method/property/field
-    autocmd FileType cs nnoremap <buffer> <C-k> :OmniSharpNavigateUp<CR>
-    autocmd FileType cs nnoremap <buffer> <C-j> :OmniSharpNavigateDown<CR>
+      " Navigate up and down by method/property/field
+      autocmd FileType cs nnoremap <buffer> <C-k> :OmniSharpNavigateUp<CR>
+      autocmd FileType cs nnoremap <buffer> <C-j> :OmniSharpNavigateDown<CR>
+ 
+      " Find all code errors/warnings for the current solution and populate the quickfix window
+      autocmd FileType cs nnoremap <buffer> <Leader>cc :OmniSharpGlobalCodeCheck<CR>
   augroup END
-
+  
   " Contextual code actions (uses fzf, CtrlP or unite.vim when available)
-  "nnoremap <Leader><Space> :OmniSharpGetCodeActions<CR>
+  nnoremap <Leader><Space> :OmniSharpGetCodeActions<CR>
   " Run code actions with text selected in visual mode to extract method
-  "xnoremap <Leader><Space> :call OmniSharp#GetCodeActions('visual')<CR>
-
+  xnoremap <Leader><Space> :call OmniSharp#GetCodeActions('visual')<CR>
+  
   " Rename with dialog
   nnoremap <Leader>nm :OmniSharpRename<CR>
   nnoremap <F2> :OmniSharpRename<CR>
   " Rename without dialog - with cursor on the symbol to rename: `:Rename newname`
   command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
-
+  
   nnoremap <Leader>cf :OmniSharpCodeFormat<CR>
-
+  
   " Start the omnisharp server for the current solution
   nnoremap <Leader>ss :OmniSharpStartServer<CR>
   nnoremap <Leader>sp :OmniSharpStopServer<CR>
-
+  
   " Enable snippet completion
-  " let g:OmniSharp_want_snippet=1
+  " let g:OmniSharp_want_snippet=1endif
 endif
 
 "----------------------------------------------------------------------
