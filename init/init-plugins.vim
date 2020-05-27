@@ -170,12 +170,16 @@ endif
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'markdown') >= 0
   " vim markdown
-  Plug 'godlygeek/tabular'
-  Plug 'plasticboy/vim-markdown'
+  "Plug 'godlygeek/tabular'
+  "Plug 'plasticboy/vim-markdown'
   
   " markdown预览
-  Plug 'iamcco/mathjax-support-for-mkdp'
-  Plug 'iamcco/markdown-preview.vim'
+  "Plug 'iamcco/mathjax-support-for-mkdp'
+  Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+
+  nmap <leader>mp <Plug>MarkdownPreview
+  nmap <leader>ms <Plug>MarkdownPreviewStop
+  nmap <leader>mt <Plug>MarkdownPreviewToggle
 endif
 
 "----------------------------------------------------------------------
