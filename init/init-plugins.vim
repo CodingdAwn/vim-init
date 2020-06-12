@@ -128,6 +128,9 @@ if index(g:bundle_group, 'basic') >= 0
   " relative line nunbers
   Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
+  " man in vim 
+  Plug 'vim-utils/vim-man'
+
   " 输入快捷键时 提示
   Plug 'liuchengxu/vim-which-key'
   " 这里如果使用延后加载的话 autoload还没有加载 注册命令使用不了
@@ -195,7 +198,7 @@ endif
 if index(g:bundle_group, 'neo') >= 0
   if has('nvim')
     " neovim的终端插件
-	Plug 'kassio/neoterm'
+	  Plug 'kassio/neoterm'
   endif
 endif
 
