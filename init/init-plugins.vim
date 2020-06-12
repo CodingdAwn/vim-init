@@ -896,6 +896,9 @@ if index(g:bundle_group, 'coc') >= 0
   nnoremap <silent> <leader>ok  :<C-u>CocPrev<CR>
   " Resume latest coc list.
   nnoremap <silent> <leader>op  :<C-u>CocListResume<CR>
+
+  " unmap ctrl i, it's previous location
+  unmap <c-i>
 endif
 
 "----------------------------------------------------------------------
