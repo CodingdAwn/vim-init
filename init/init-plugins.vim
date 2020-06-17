@@ -902,6 +902,9 @@ if index(g:bundle_group, 'coc') >= 0
 
   " unmap ctrl i, it's previous location
   unmap <c-i>
+
+  " json syntax correct
+  autocmd FileType json syntax match Comment +\/\/.\+$+ 
 endif
 
 "----------------------------------------------------------------------
