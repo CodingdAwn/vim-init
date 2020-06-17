@@ -1,3 +1,6 @@
+" File              : init-plugins.vim
+" Date              : 17.06.2020
+" Last Modified Date: 17.06.2020
 "======================================================================
 "
 " init-plugins.vim -
@@ -136,6 +139,9 @@ if index(g:bundle_group, 'basic') >= 0
   " 这里如果使用延后加载的话 autoload还没有加载 注册命令使用不了
   "Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 
+  " surround
+  Plug 'tpope/vim-surround'
+
 	" 使用 ALT+E 来选择窗口
 	nmap - <Plug>(choosewin)
 
@@ -252,7 +258,7 @@ endif
 if index(g:bundle_group, 'enhanced') >= 0
 
   " 用 v 选中一个区域后，ALT_+/- 按分隔符扩大/缩小选区
-  Plug 'terryma/vim-expand-region'
+  "Plug 'terryma/vim-expand-region'
 
   " 快速文件搜索
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -386,8 +392,8 @@ if index(g:bundle_group, 'filetypes') >= 0
   " C++ 语法高亮增强，支持 11/14/17 标准
   Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 
-	" 额外语法文件
-	Plug 'justinmk/vim-syntax-extra', { 'for': ['c', 'bison', 'flex', 'cpp'] }
+  " 额外语法文件
+  Plug 'justinmk/vim-syntax-extra', { 'for': ['c', 'bison', 'flex', 'cpp'] }
 
   " python 语法文件增强
   Plug 'vim-python/python-syntax', { 'for': ['python'] }
@@ -395,8 +401,11 @@ if index(g:bundle_group, 'filetypes') >= 0
   " rust 语法增强
   Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
-	" vim org-mode 
-	Plug 'jceb/vim-orgmode', { 'for': 'org' }
+  " vim org-mode 
+  Plug 'jceb/vim-orgmode', { 'for': 'org' }
+
+  " vim header
+  Plug 'alpertuna/vim-header'
 
   " vim-cpp-enhanced-highlight c++语法高亮
   let g:cpp_class_scope_highlight = 1
