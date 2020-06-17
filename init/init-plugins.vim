@@ -832,11 +832,11 @@ if index(g:bundle_group, 'coc') >= 0
   autocmd CursorHold * silent call CocActionAsync('highlight')
 
   " Symbol renaming.
-  nmap <leader>cr <Plug>(coc-rename)
+  nmap <leader>or <Plug>(coc-rename)
 
   " Formatting selected code.
-  "xmap <leader>f  <Plug>(coc-format-selected)
-  "nmap <leader>f  <Plug>(coc-format-selected)
+  xmap <leader>of  <Plug>(coc-format-selected)
+  "nmap <leader>of  <Plug>(coc-format-selected)
 
   augroup mygroup
     autocmd!
@@ -854,7 +854,7 @@ if index(g:bundle_group, 'coc') >= 0
   " Remap keys for applying codeAction to the current line.
   "nmap <leader>cc  <Plug>(coc-codeaction)
   " Apply AutoFix to problem on the current line.
-  nmap <leader>qf  <Plug>(coc-fix-current)
+  "nmap <leader>qf  <Plug>(coc-fix-current)
 
   " Introduce function text object
   " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
