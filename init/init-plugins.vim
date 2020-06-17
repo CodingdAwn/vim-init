@@ -1,8 +1,6 @@
 " File              : init-plugins.vim
 " Date              : 17.06.2020
 " Last Modified Date: 17.06.2020
-"======================================================================
-"
 " init-plugins.vim -
 "
 " Created by skywind on 2018/05/31
