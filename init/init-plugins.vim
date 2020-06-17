@@ -1,6 +1,3 @@
-" File              : init-plugins.vim
-" Date              : 17.06.2020
-" Last Modified Date: 17.06.2020
 " init-plugins.vim -
 "
 " Created by skywind on 2018/05/31
@@ -401,9 +398,6 @@ if index(g:bundle_group, 'filetypes') >= 0
 
   " vim org-mode 
   Plug 'jceb/vim-orgmode', { 'for': 'org' }
-
-  " vim header
-  Plug 'alpertuna/vim-header'
 
   " vim-cpp-enhanced-highlight c++语法高亮
   let g:cpp_class_scope_highlight = 1
