@@ -902,7 +902,9 @@ if index(g:bundle_group, 'coc') >= 0
   nnoremap <silent> <leader>op  :<C-u>CocListResume<CR>
 
   " unmap ctrl i, it's previous location
-  "unmap <c-i>
+  if mapcheck("<c-i>") != ''
+    unmap <c-i>
+  endif
 
   " json syntax correct
   autocmd FileType json syntax match Comment +\/\/.\+$+ 
@@ -1022,6 +1024,8 @@ if index(g:bundle_group, 'myself') >= 0
   " file header auto generate
   Plug 'CodingdAwn/vim-header'
   let g:header_auto_add_header=0
+  let g:header_field_modified_timestamp=0
+  let g:header_field_modified_by=0
   let g:header_field_author='dAwn_'
 endif
 
