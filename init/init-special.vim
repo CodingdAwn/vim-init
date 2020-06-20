@@ -75,4 +75,8 @@ command! -nargs=0 -bang TransferLF call TLF()
 "----------------------------------------------------------------------
 " 在当前光标下输出时间
 " ----------------------------------------------------------------------
-command! -nargs=0 -bang PutDate exec ":pu=strftime('%Y-%m-%d')"
+function PutTheDate()
+  let l:date_string = strftime('%Y-%m-%d')
+  exec ':normal! a' . l:date_string . "\<ESC>"
+endfunction
+command! -nargs=0 -bang PutDate call PutTheDate()
