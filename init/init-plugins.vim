@@ -128,6 +128,8 @@ if index(g:bundle_group, 'basic') >= 0
 
   " man in vim 
   Plug 'vim-utils/vim-man'
+  " let the neovim's man.vim not to load
+  let g:loaded_man = 1
 
   " 输入快捷键时 提示
   Plug 'liuchengxu/vim-which-key'
