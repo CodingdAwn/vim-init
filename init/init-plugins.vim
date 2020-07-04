@@ -343,6 +343,31 @@ if index(g:bundle_group, 'tags') >= 0
 
   " debug gutentags
   "let g:gutentags_trace = 1
+  let g:gutentags_exclude_filetypes = ['gitcommit', 'gitconfig', 'gitrebase', 'gitsendemail', 'git', 'cmake', 'text']
+  let g:gutentags_ctags_exclude = [
+  \  '*.git', '*.svn', '*.hg',
+  \  'cache', 'build', 'dist', 'bin', 'node_modules', 'bower_components',
+  \  '*-lock.json',  '*.lock',
+  \  '*.min.*',
+  \  '*.bak',
+  \  '*.zip',
+  \  '*.txt',
+  \  '*.pyc',
+  \  '*.class',
+  \  '*.sln',
+  \  '*.csproj', '*.csproj.user',
+  \  '*.tmp',
+  \  '*.cache',
+  \  '*.vscode',
+  \  '*.pdb',
+  \  '*.exe', '*.dll', '*.bin',
+  \  '*.mp3', '*.ogg', '*.flac',
+  \  '*.swp', '*.swo',
+  \  '.DS_Store', '*.plist',
+  \  '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png', '*.svg',
+  \  '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
+  \  '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx', '*.xls',
+  \]
 endif
 "----------------------------------------------------------------------
 " 文本对象：textobj 全家桶
