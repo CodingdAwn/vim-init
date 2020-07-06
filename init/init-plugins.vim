@@ -495,7 +495,7 @@ endif
 " ale：动态语法检查
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'ale') >= 0
-  "Plug 'w0rp/ale'
+  Plug 'w0rp/ale'
 
   " 设定延迟和提示信息
   let g:ale_completion_delay = 500
@@ -517,22 +517,17 @@ if index(g:bundle_group, 'ale') >= 0
   let g:airline#extensions#ale#enabled = 1
 
   " 编辑不同文件类型需要的语法检查器
-  let g:ale_linters = {
-        \ 'c': ['clangcheck'],
-        \ 'cpp': ['clangcheck'],
-        \ 'python': ['pylint'],
-        \ 'lua': ['luac'],
-        \ 'go': ['go build', 'gofmt'],
-        \ 'java': ['javac'],
-        \ 'javascript': ['eslint'],
-        \ 'cs': ['OmniSharp'],
-        \ }
+  "let g:ale_linters = {
+  "      \ 'python': ['pylint'],
+  "      \ 'lua': ['luac'],
+  "      \ 'go': ['go build', 'gofmt'],
+  "      \ 'java': ['javac'],
+  "      \ 'cs': ['OmniSharp'],
+  "      \ 'javascript': ['eslint'],
+  "      \ }
 
   " compile commands json
-  "let g:ale_c_build_dir
   let g:ale_c_parse_compile_commands = 1
-  "let g:ale_c_parse_makefile = 1
-  "let g:ale_c_clangtidy_checks = ['-*', 'cppcoreguidelines-*']
 
   " 获取 pylint, flake8 的配置文件，在 vim-init/tools/conf 下面
   function s:lintcfg(name)
@@ -556,7 +551,7 @@ if index(g:bundle_group, 'ale') >= 0
   let g:ale_c_clangcheck_options = '--extra-arg="-w"'
   let g:ale_cpp_clangcheck_options = '--extra-arg="-w"'
 
-  let g:ale_linters.text = ['textlint', 'write-good', 'languagetool']
+  "let g:ale_linters.text = ['textlint', 'write-good', 'languagetool']
 
   " 如果没有 gcc 只有 clang 时（FreeBSD）
   if executable('gcc') == 0 && executable('clang')
@@ -940,37 +935,36 @@ endif
 if index(g:bundle_group, 'unity') >= 0
   " vim omnicompletion for c#
   Plug 'OmniSharp/omnisharp-vim'
+  
+  " Track the engine.
+  Plug 'SirVer/ultisnips'
+  
+  " Snippets are separated from the engine. Add this if you want them:
+  Plug 'honza/vim-snippets'
 
   " Note: this is required for the plugin to work
   filetype indent plugin on
   
   " Use the stdio OmniSharp-roslyn server
   let g:OmniSharp_server_stdio = 1
+
+  " server path
+  "let g:gaoxifeng = expand('~/.cache/omnisharp-vim/omnisharp-roslyn')
+  "let g:OmniSharp_server_path = g:gaoxifeng . '/run'
   
   " Set the type lookup function to use the preview window instead of echoing it
-  "let g:OmniSharp_typeLookupInPreview = 1
+  let g:OmniSharp_typeLookupInPreview = 0
   
   " Timeout in seconds to wait for a response from the server
   let g:OmniSharp_timeout = 5
   
-  " Don't autoselect first omnicomplete option, show options even if there is only
-  " one (so the preview documentation is accessible). Remove 'preview', 'popup'
-  " and 'popuphidden' if you don't want to see any documentation whatsoever.
-  " Note that neovim does not support `popuphidden` or `popup` yet: 
-  " https://github.com/neovim/neovim/issues/10996
-
-  if !has('nvim')
-    "set completeopt=longest,menuone,preview,popuphidden
+  if has('unix')
+    let g:OmniSharp_server_use_mono = 1
   endif
-  
-  " Highlight the completion documentation popup background/foreground the same as
-  " the completion menu itself, for better readability with highlighted
-  " documentation.
 
-  if !has('nvim')
-    "set completepopup=highlight:Pmenu,border:off
-  endif
-  
+  let g:OmniSharp_highlight_groups = {
+  \ 'LocalName': 'Text',
+  \}
   " Fetch full documentation during omnicomplete requests.
   " By default, only Type/Method signatures are fetched. Full documentation can
   " still be fetched when you need it with the :OmniSharpDocumentation command.
@@ -984,7 +978,7 @@ if index(g:bundle_group, 'unity') >= 0
   let g:ale_linters = { 'cs': ['OmniSharp'] }
   
   " Update semantic highlighting on BufEnter, InsertLeave and TextChanged
-  let g:OmniSharp_highlight_types = 3
+  let g:OmniSharp_highlight_types = 2
   
   augroup omnisharp_commands
       autocmd!
@@ -996,9 +990,9 @@ if index(g:bundle_group, 'unity') >= 0
   
       " The following commands are contextual, based on the cursor position.
       autocmd FileType cs nnoremap <buffer> gd :OmniSharpGotoDefinition<CR>
-      autocmd FileType cs nnoremap <buffer> <Leader>fi :OmniSharpFindImplementations<CR>
-      autocmd FileType cs nnoremap <buffer> <Leader>fs :OmniSharpFindSymbol<CR>
-      autocmd FileType cs nnoremap <buffer> <Leader>fu :OmniSharpFindUsages<CR>
+      autocmd FileType cs nnoremap <buffer> gi :OmniSharpFindImplementations<CR>
+      autocmd FileType cs nnoremap <buffer> gs :OmniSharpFindSymbol<CR>
+      autocmd FileType cs nnoremap <buffer> gu :OmniSharpFindUsages<CR>
   
       " Finds members in the current buffer
       autocmd FileType cs nnoremap <buffer> <Leader>fm :OmniSharpFindMembers<CR>
@@ -1033,9 +1027,10 @@ if index(g:bundle_group, 'unity') >= 0
   " Start the omnisharp server for the current solution
   nnoremap <Leader>ss :OmniSharpStartServer<CR>
   nnoremap <Leader>sp :OmniSharpStopServer<CR>
+  nnoremap <Leader>se :OmniSharpHighlightEcho<CR>
   
   " Enable snippet completion
-  " let g:OmniSharp_want_snippet=1endif
+  let g:OmniSharp_want_snippet=1
 endif
 
 "----------------------------------------------------------------------
