@@ -10,15 +10,16 @@ let g:which_key_map = {}
 " =======================================================
 let g:which_key_map.c = {
       \ 'name' : '+gutentags_plus',
-      \ 's' : 'Find this symbol'    ,
-      \ 'g' : 'Find this definition',
-      \ 'd' : 'Find functions called by this function',
-      \ 'c' : 'Find functions calling this function',
-      \ 't' : 'Find this text string',
-      \ 'e' : 'Find this egrep pattern',
-      \ 'f' : 'Find this file',
-      \ 'i' : 'Find files #including this file',
-      \ 'a' : 'Find places where this symbol is assigned a value',
+      \ 'a' : 'code action',
+      \ 'd' : 'documentation',
+      \ 'e' : 'highlight echo',
+      \ 'r' : 'rename',
+      \ 's' : 'start server',
+      \ 'p' : 'stop server',
+      \ 't' : 'type look up',
+      \ 'f' : 'code format',
+      \ 'm' : 'find members in the current buffer',
+      \ 'x' : 'fix using',
       \ }
 
 " =======================================================
