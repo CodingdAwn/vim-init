@@ -1029,6 +1029,7 @@ if index(g:bundle_group, 'unity') >= 0
   " Start the omnisharp server for the current solution
   nnoremap <Leader>fs :OmniSharpStartServer<CR>
   nnoremap <Leader>fp :OmniSharpStopServer<CR>
+  nnoremap <Leader>fe :OmniSharpHighlightEcho<CR>
   
   " Enable snippet completion
   let g:OmniSharp_want_snippet=1
