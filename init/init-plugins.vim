@@ -941,7 +941,7 @@ if index(g:bundle_group, 'unity') >= 0
   
   " Snippets are separated from the engine. Add this if you want them:
   Plug 'honza/vim-snippets'
-  // 代码补全一般都会用tab
+  " 代码补全一般都会用tab
   let g:UltiSnipsExpandTrigger="<c-z>"
 
   " Note: this is required for the plugin to work
