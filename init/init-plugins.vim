@@ -941,6 +941,8 @@ if index(g:bundle_group, 'unity') >= 0
   
   " Snippets are separated from the engine. Add this if you want them:
   Plug 'honza/vim-snippets'
+  // 代码补全一般都会用tab
+  let g:UltiSnipsExpandTrigger="<c-z>"
 
   " Note: this is required for the plugin to work
   filetype indent plugin on
@@ -998,8 +1000,8 @@ if index(g:bundle_group, 'unity') >= 0
       autocmd FileType cs nnoremap <buffer> <Leader>fm :OmniSharpFindMembers<CR>
 
       autocmd FileType cs nnoremap <buffer> <Leader>fx :OmniSharpFixUsings<CR>
-      autocmd FileType cs nnoremap <buffer> <Leader>tt :OmniSharpTypeLookup<CR>
-      autocmd FileType cs nnoremap <buffer> <Leader>dc :OmniSharpDocumentation<CR>
+      autocmd FileType cs nnoremap <buffer> <Leader>ft :OmniSharpTypeLookup<CR>
+      autocmd FileType cs nnoremap <buffer> <Leader>fd :OmniSharpDocumentation<CR>
       autocmd FileType cs nnoremap <buffer> <C-\> :OmniSharpSignatureHelp<CR>
       autocmd FileType cs inoremap <buffer> <C-\> <C-o>:OmniSharpSignatureHelp<CR>
 
@@ -1012,22 +1014,22 @@ if index(g:bundle_group, 'unity') >= 0
   augroup END
   
   " Contextual code actions (uses fzf, CtrlP or unite.vim when available)
-  nnoremap <Leader><Space> :OmniSharpGetCodeActions<CR>
+  nnoremap <Leader>fa :OmniSharpGetCodeActions<CR>
   " Run code actions with text selected in visual mode to extract method
-  xnoremap <Leader><Space> :call OmniSharp#GetCodeActions('visual')<CR>
+  xnoremap <Leader>fa :call OmniSharp#GetCodeActions('visual')<CR>
   
   " Rename with dialog
-  nnoremap <Leader>nm :OmniSharpRename<CR>
-  nnoremap <F2> :OmniSharpRename<CR>
+  nnoremap <Leader>fr :OmniSharpRename<CR>
+  "nnoremap <F2> :OmniSharpRename<CR>
   " Rename without dialog - with cursor on the symbol to rename: `:Rename newname`
   command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
   
-  nnoremap <Leader>cf :OmniSharpCodeFormat<CR>
+  nnoremap <Leader>ff :OmniSharpCodeFormat<CR>
   
   " Start the omnisharp server for the current solution
-  nnoremap <Leader>ss :OmniSharpStartServer<CR>
-  nnoremap <Leader>sp :OmniSharpStopServer<CR>
-  nnoremap <Leader>se :OmniSharpHighlightEcho<CR>
+  nnoremap <Leader>fs :OmniSharpStartServer<CR>
+  nnoremap <Leader>fp :OmniSharpStopServer<CR>
+  nnoremap <Leader>fe :OmniSharpHighlightEcho<CR>
   
   " Enable snippet completion
   let g:OmniSharp_want_snippet=1
