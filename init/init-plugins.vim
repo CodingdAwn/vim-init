@@ -462,7 +462,7 @@ endif
 if index(g:bundle_group, 'nerdtree') >= 0
   "Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFocus', 'NERDTreeToggle', 'NERDTreeCWD', 'NERDTreeFind'] }
   Plug 'scrooloose/nerdtree'
-  Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+  "Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
   let g:NERDTreeMinimalUI = 1
   let g:NERDTreeDirArrows = 1
   let g:NERDTreeHijackNetrw = 0
@@ -1000,7 +1000,7 @@ if index(g:bundle_group, 'unity') >= 0
   
       " The following commands are contextual, based on the cursor position.
       autocmd FileType cs nnoremap <buffer> gd :OmniSharpGotoDefinition<CR>
-      autocmd FileType cs nnoremap <buffer> gi :OmniSharpFindImplementations<CR>
+      autocmd FileType cs nnoremap <buffer> gt :OmniSharpFindImplementations<CR>
       autocmd FileType cs nnoremap <buffer> gs :OmniSharpFindSymbol<CR>
       autocmd FileType cs nnoremap <buffer> gu :OmniSharpFindUsages<CR>
   
