@@ -6,10 +6,10 @@ set timeoutlen=500
 let g:which_key_map = {}
 
 " =======================================================
-" 基于gutentags_puls查找
+" OmniSharp
 " =======================================================
 let g:which_key_map.c = {
-      \ 'name' : '+gutentags_plus',
+      \ 'name' : '+omnisharp',
       \ 'a' : 'code action',
       \ 'd' : 'documentation',
       \ 'e' : 'highlight echo',
