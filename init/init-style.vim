@@ -46,16 +46,19 @@ set splitright
 " 颜色主题：色彩文件位于 colors 目录中
 "----------------------------------------------------------------------
 
-" 设置黑色背景
-set background=dark
-
 " 允许 256 色
 set t_Co=256
 
 " 设置颜色主题，会在所有 runtimepaths 的 colors 目录寻找同名配置
 "color desert256
 "colorscheme molokai
+"let g:gruvbox_contrast_dark = 'hard'
+"let g:gruvbox_invert_tabline = 1
+"let g:gruvbox_transparent_bg=1
 color gruvbox
+
+" 设置黑色背景
+set background=dark
 
 "if !has('nvim')
 "  if !has("gui_running")
