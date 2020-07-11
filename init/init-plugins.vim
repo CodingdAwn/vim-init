@@ -232,7 +232,7 @@ if index(g:bundle_group, 'YCM') >= 0
   
   " Python ycm 解释器
   if (g:is_windows)
-    let g:ycm_server_python_interpreter='C:\Users\dAwn_\AppData\Local\Programs\Python\Python37\python3.exe'
+    let g:ycm_server_python_interpreter='C:\Users\admin\AppData\Local\Programs\Python\Python38'
   else
     let g:ycm_server_python_interpreter='/usr/local/bin/python3'
   endif
@@ -462,7 +462,7 @@ endif
 if index(g:bundle_group, 'nerdtree') >= 0
   "Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFocus', 'NERDTreeToggle', 'NERDTreeCWD', 'NERDTreeFind'] }
   Plug 'scrooloose/nerdtree'
-  Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+  "Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
   let g:NERDTreeMinimalUI = 1
   let g:NERDTreeDirArrows = 1
   let g:NERDTreeHijackNetrw = 0
@@ -950,10 +950,18 @@ if index(g:bundle_group, 'unity') >= 0
   " Use the stdio OmniSharp-roslyn server
   let g:OmniSharp_server_stdio = 1
 
-  " server path
-  "let g:gaoxifeng = expand('~/.cache/omnisharp-vim/omnisharp-roslyn')
-  "let g:OmniSharp_server_path = g:gaoxifeng . '/run'
-  
+  if has('patch-8.1.1880')
+    set completeopt=longest,menuone,popuphidden
+    " Highlight the completion documentation popup background/foreground the same as
+    " the completion menu itself, for better readability with highlighted
+    " documentation.
+    set completepopup=highlight:Pmenu,border:off
+  else
+    set completeopt=longest,menuone,preview
+    " Set desired preview window height for viewing documentation.
+    set previewheight=5
+  endif
+
   " Set the type lookup function to use the preview window instead of echoing it
   let g:OmniSharp_typeLookupInPreview = 0
   
@@ -992,7 +1000,7 @@ if index(g:bundle_group, 'unity') >= 0
   
       " The following commands are contextual, based on the cursor position.
       autocmd FileType cs nnoremap <buffer> gd :OmniSharpGotoDefinition<CR>
-      autocmd FileType cs nnoremap <buffer> gi :OmniSharpFindImplementations<CR>
+      autocmd FileType cs nnoremap <buffer> gt :OmniSharpFindImplementations<CR>
       autocmd FileType cs nnoremap <buffer> gs :OmniSharpFindSymbol<CR>
       autocmd FileType cs nnoremap <buffer> gu :OmniSharpFindUsages<CR>
   
