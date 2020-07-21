@@ -80,3 +80,12 @@ function PutTheDate()
   exec ':normal! a' . l:date_string . "\<ESC>"
 endfunction
 command! -nargs=0 -bang PutDate call PutTheDate()
+
+"----------------------------------------------------------------------
+" change to transparent
+" ----------------------------------------------------------------------
+function ToTransparent()
+  hi! Normal ctermbg=NONE guibg=NONE
+endfunction
+command! -nargs=0 -bang Transparent call ToTransparent()
+
