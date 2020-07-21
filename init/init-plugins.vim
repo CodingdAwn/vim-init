@@ -15,6 +15,7 @@ if !exists('g:bundle_group')
 	let g:bundle_group += ['tags', 'airline', 'nerdtree', 'ale', 'echodoc', 'YCM']
 	let g:bundle_group += ['leaderf', 'python-mode', 'cplusplus', 'neo', 'unity']
 	let g:bundle_group += ['markdown', 'cmake', 'coc', 'myself', 'translator']
+	let g:bundle_group += ['web']
 endif
 
 
@@ -43,10 +44,10 @@ call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 Plug 'easymotion/vim-easymotion'
 
 " 文件浏览器，代替 netrw
-Plug 'justinmk/vim-dirvish'
+"Plug 'justinmk/vim-dirvish'
 
 " 表格对齐，使用命令 Tabularize
-Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
+"Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 
 " Diff 增强，支持 histogram / patience 等更科学的 diff 算法
 Plug 'chrisbra/vim-diff-enhanced'
@@ -121,7 +122,7 @@ if index(g:bundle_group, 'basic') >= 0
   Plug 'itchyny/vim-cursorword'
 
   " distraction-free writing in vim
-  Plug 'junegunn/goyo.vim'
+  "Plug 'junegunn/goyo.vim'
   
   " relative line nunbers
   Plug 'jeffkreeftmeijer/vim-numbertoggle'
@@ -1041,6 +1042,14 @@ if index(g:bundle_group, 'unity') >= 0
   
   " Enable snippet completion
   let g:OmniSharp_want_snippet=1
+endif
+
+"----------------------------------------------------------------------
+" some web language
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'myself') >= 0
+  Plug 'posva/vim-vue'
+  Plug 'phpactor/phpactor'
 endif
 
 "----------------------------------------------------------------------
