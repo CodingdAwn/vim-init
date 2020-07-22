@@ -89,3 +89,12 @@ function ToTransparent()
 endfunction
 command! -nargs=0 -bang Transparent call ToTransparent()
 
+"----------------------------------------------------------------------
+" create a new tab with current buffer content
+" ----------------------------------------------------------------------
+function ToNewTabWithBuffer()
+"  exec ':normal! \<c-w> T'
+  exec ':tab split'
+endfunction
+command! -nargs=0 -bang TabWithBuffer call ToNewTabWithBuffer()
+

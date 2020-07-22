@@ -71,7 +71,6 @@ let g:which_key_map.g = {
       \ 'g' : 'find definition',
       \ 'a' : 'find assign',
       \ 'z' : 'find with ctag',
-      \ 'k' : 'kill gscope',
       \ }
 
 " =======================================================
