@@ -344,7 +344,7 @@ if index(g:bundle_group, 'tags') >= 0
 
   " debug gutentags
   "let g:gutentags_trace = 1
-  let g:gutentags_exclude_filetypes = ['gitcommit', 'gitconfig', 'gitrebase', 'gitsendemail', 'git', 'cmake', 'text']
+  let g:gutentags_exclude_filetypes = ['gitcommit', 'gitconfig', 'gitrebase', 'gitsendemail', 'git', 'cmake', 'text', 'yaml']
   let g:gutentags_ctags_exclude = [
   \  '*.git', '*.svn', '*.hg',
   \  'cache', 'build', 'dist', 'bin', 'node_modules', 'bower_components',
