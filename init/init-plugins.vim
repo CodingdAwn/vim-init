@@ -1049,7 +1049,7 @@ endif
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'myself') >= 0
   Plug 'posva/vim-vue'
-  Plug 'phpactor/phpactor'
+  Plug 'phpactor/phpactor', {'for': 'php', 'branch': 'master', 'do': 'composer install --no-dev -o'}
 endif
 
 "----------------------------------------------------------------------
