@@ -60,14 +60,18 @@ let g:which_key_map.r.f = 'which_ignore'
 " =======================================================
 let g:which_key_map.g = {
       \ 'name' : '+leaderf gtags',
-      \ 'r' : 'show reference to a symbol which has definithions'    ,
-      \ 'd' : 'show locations of definitions',
+      \ 'c' : 'find calling this func',
+      \ 't' : 'find text',
+      \ 'e' : 'find use egrep',
+      \ 'f' : 'find file',
+      \ 'i' : 'find include',
+      \ 'r' : 'show reference to a symbol which has definithions',
+      \ 'd' : 'find this function called',
       \ 's' : 'show reference to a symbol which has no definithions',
-      \ 'g' : 'show all lines which to the <PATTERN>',
-      \ 'o' : 'recall last search. if window is closed, reopen it',
-      \ 'n' : 'jump to the next result',
-      \ 'p' : 'jump to the previous result',
-      \ 'u' : 'create tag files if not exists',
+      \ 'g' : 'find definition',
+      \ 'a' : 'find assign',
+      \ 'z' : 'find with ctag',
+      \ 'k' : 'kill gscope',
       \ }
 
 " =======================================================

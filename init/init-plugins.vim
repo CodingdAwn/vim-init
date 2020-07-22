@@ -307,6 +307,19 @@ if index(g:bundle_group, 'tags') >= 0
   autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
   noremap <m-]> :PreviewTag <cr>
 
+  " 快捷键remap
+	nmap <silent> <leader>gs <Plug>GscopeFindSymbol
+	nmap <silent> <leader>gg <Plug>GscopeFindDefinition
+	nmap <silent> <leader>gc <Plug>GscopeFindCallingFunc
+	nmap <silent> <leader>gt <Plug>GscopeFindText
+	nmap <silent> <leader>ge <Plug>GscopeFindEgrep
+	nmap <silent> <leader>gf <Plug>GscopeFindFile
+	nmap <silent> <leader>gi <Plug>GscopeFindInclude
+	nmap <silent> <leader>gd <Plug>GscopeFindCalledFunc
+	nmap <silent> <leader>ga <Plug>GscopeFindAssign
+	nmap <silent> <leader>gz <Plug>GscopeFindCtag
+	nmap <silent> <leader>gk :GscopeKill<cr>
+
   " 设定项目目录标志：除了 .git/.svn 外，还有 .root 文件
   let g:gutentags_project_root = ['.root']
   let g:gutentags_ctags_tagfile = '.tags'
