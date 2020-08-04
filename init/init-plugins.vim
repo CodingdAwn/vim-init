@@ -15,7 +15,7 @@ if !exists('g:bundle_group')
 	let g:bundle_group += ['tags', 'airline', 'nerdtree', 'ale', 'echodoc', 'YCM']
 	let g:bundle_group += ['leaderf', 'python-mode', 'cplusplus', 'neo', 'unity']
 	let g:bundle_group += ['markdown', 'cmake', 'coc', 'myself', 'translator']
-	let g:bundle_group += ['web', 'go']
+	let g:bundle_group += ['web', 'go', 'wiki']
 endif
 
 
@@ -264,10 +264,10 @@ if index(g:bundle_group, 'enhanced') >= 0
   set rtp+=/usr/local/opt/fzf
 
   " 使用 :FlyGrep 命令进行实时 grep
-  Plug 'wsdjeg/FlyGrep.vim'
+  "Plug 'wsdjeg/FlyGrep.vim'
 
   " 使用 :CtrlSF 命令进行模仿 sublime 的 grep
-  Plug 'dyng/ctrlsf.vim'
+  "Plug 'dyng/ctrlsf.vim'
 
   " 配对括号和引号自动补全
   Plug 'Raimondi/delimitMate'
@@ -492,7 +492,7 @@ endif
 " LanguageTool 语法检查
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'grammer') >= 0
-  Plug 'rhysd/vim-grammarous'
+  "Plug 'rhysd/vim-grammarous'
   noremap <space>rg :GrammarousCheck --lang=en-US --no-move-to-first-error --no-preview<cr>
   map <space>rr <Plug>(grammarous-open-info-window)
   map <space>rv <Plug>(grammarous-move-to-info-window)
@@ -1086,6 +1086,12 @@ if index(g:bundle_group, 'go') >= 0
   let g:go_highlight_build_constraints = 1
 endif
 
+"----------------------------------------------------------------------
+" vim wiki
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'go') >= 0
+  Plug 'vimwiki/vimwiki'
+endif
 "----------------------------------------------------------------------
 " vim script by dawn
 "----------------------------------------------------------------------
