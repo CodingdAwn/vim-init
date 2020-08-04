@@ -15,7 +15,7 @@ if !exists('g:bundle_group')
 	let g:bundle_group += ['tags', 'airline', 'nerdtree', 'ale', 'echodoc', 'YCM']
 	let g:bundle_group += ['leaderf', 'python-mode', 'cplusplus', 'neo', 'unity']
 	let g:bundle_group += ['markdown', 'cmake', 'coc', 'myself', 'translator']
-	let g:bundle_group += ['web']
+	let g:bundle_group += ['web', 'go']
 endif
 
 
@@ -1066,6 +1066,24 @@ if index(g:bundle_group, 'myself') >= 0
   " highlight plugin
   Plug 'StanAngeloff/php.vim'
   "Plug 'phpactor/phpactor', {'for': 'php', 'branch': 'master', 'do': 'composer install --no-dev -o'}
+endif
+
+"----------------------------------------------------------------------
+" go
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'go') >= 0
+  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+  " 使用coc的map代替
+  let g:go_def_mapping_enabled = 0
+
+  " highlight
+  let g:go_highlight_types = 1
+  let g:go_highlight_fields = 1
+  let g:go_highlight_functions = 1
+  let g:go_highlight_function_calls = 1
+  let g:go_highlight_operators = 1
+  let g:go_highlight_extra_types = 1
+  let g:go_highlight_build_constraints = 1
 endif
 
 "----------------------------------------------------------------------
