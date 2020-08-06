@@ -141,7 +141,7 @@ if index(g:bundle_group, 'basic') >= 0
   Plug 'tpope/vim-surround'
 
 	" 使用 ALT+E 来选择窗口
-	nmap - <Plug>(choosewin)
+	nmap <a-e> <Plug>(choosewin)
 
 	" 默认不显示 startify
 	let g:startify_disable_at_vimenter = 0
