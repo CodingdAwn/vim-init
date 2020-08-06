@@ -263,6 +263,9 @@ if index(g:bundle_group, 'enhanced') >= 0
   Plug 'junegunn/fzf.vim'
   set rtp+=/usr/local/opt/fzf
 
+  let g:fzf_layout = { 'window': {'width': 0.8, 'height': 0.8} }
+  let $FZF_DEFAULT_OPTS='--reverse'
+
   " 使用 :FlyGrep 命令进行实时 grep
   "Plug 'wsdjeg/FlyGrep.vim'
 
