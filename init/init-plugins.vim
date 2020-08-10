@@ -1063,11 +1063,11 @@ endif
 "----------------------------------------------------------------------
 " some web language
 "----------------------------------------------------------------------
-if index(g:bundle_group, 'myself') >= 0
-  Plug 'posva/vim-vue'
+if index(g:bundle_group, 'web') >= 0
+  "Plug 'posva/vim-vue'
   
   " highlight plugin
-  Plug 'StanAngeloff/php.vim'
+  "Plug 'StanAngeloff/php.vim'
   "Plug 'phpactor/phpactor', {'for': 'php', 'branch': 'master', 'do': 'composer install --no-dev -o'}
 endif
 
