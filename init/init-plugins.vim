@@ -1087,6 +1087,10 @@ if index(g:bundle_group, 'go') >= 0
   let g:go_highlight_operators = 1
   let g:go_highlight_extra_types = 1
   let g:go_highlight_build_constraints = 1
+
+  " remap
+  autocmd FileType go nnoremap <buffer> <a-m> :GoDecls
+  autocmd FileType go nnoremap <buffer> <a-n> :GoDeclsDir
 endif
 
 "----------------------------------------------------------------------
