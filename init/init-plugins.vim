@@ -534,15 +534,17 @@ if index(g:bundle_group, 'ale') >= 0
   let g:airline#extensions#ale#enabled = 1
 
   " 编辑不同文件类型需要的语法检查器
-  "let g:ale_linters = {
-  "      \ 'python': ['pylint'],
-  "      \ 'lua': ['luac'],
-  "      \ 'go': ['go build', 'gofmt'],
-  "      \ 'java': ['javac'],
-  "      \ 'cs': ['OmniSharp'],
-  "      \ 'javascript': ['eslint'],
-  "      \ }
+  let g:ale_linters = {
+        \ 'python': ['pylint'],
+        \ 'lua': ['luac'],
+        \ 'go': ['gofmt'],
+        \ 'java': ['javac'],
+        \ 'cs': ['OmniSharp'],
+        \ 'javascript': ['eslint'],
+        \ }
 
+  " fixers
+  let b:ale_fixers = {'go': ['gofmt', 'goimports']}
   " compile commands json
   let g:ale_c_parse_compile_commands = 1
 
@@ -1002,7 +1004,8 @@ if index(g:bundle_group, 'unity') >= 0
   set previewheight=5
   
   " Tell ALE to use OmniSharp for linting C# files, and no other linters.
-  let g:ale_linters = { 'cs': ['OmniSharp'] }
+  let g:ale_linters.cs += ['OmniSharp']
+  "let g:ale_linters = { 'cs': ['OmniSharp'] }
   
   " Update semantic highlighting on BufEnter, InsertLeave and TextChanged
   let g:OmniSharp_highlight_types = 2
@@ -1076,6 +1079,10 @@ endif
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'go') >= 0
   Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+  " go debuger
+  Plug 'sebdah/vim-delve'
+
   " 使用coc的map代替
   let g:go_def_mapping_enabled = 0
 
@@ -1091,6 +1098,11 @@ if index(g:bundle_group, 'go') >= 0
   " remap
   autocmd FileType go nnoremap <buffer> <a-m> :GoDecls
   autocmd FileType go nnoremap <buffer> <a-n> :GoDeclsDir
+
+  " delve
+  let g:delve_backend = "lldb"
+
+  " some config
 endif
 
 "----------------------------------------------------------------------
