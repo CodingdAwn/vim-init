@@ -105,7 +105,7 @@ if index(g:bundle_group, 'basic') >= 0
 
   " 根据 quickfix 中匹配到的错误信息，高亮对应文件的错误行
   " 使用 :RemoveErrorMarkers 命令或者 <space>ha 清除错误
-  Plug 'mh21/errormarker.vim'
+  "Plug 'mh21/errormarker.vim'
 
   " 使用 ALT+e 会在不同窗口/标签上显示 A/B/C 等编号，然后字母直接跳转
   Plug 't9md/vim-choosewin'
@@ -276,7 +276,7 @@ if index(g:bundle_group, 'enhanced') >= 0
   Plug 'Raimondi/delimitMate'
 
 	" 提供 gist 接口
-	Plug 'lambdalisue/vim-gista', { 'on': 'Gista' }
+	"Plug 'lambdalisue/vim-gista', { 'on': 'Gista' }
 	
 	" ALT_+/- 用于按分隔符扩大缩小 v 选区
 	map <m-=> <Plug>(expand_region_expand)
@@ -512,7 +512,7 @@ endif
 " ale：动态语法检查
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'ale') >= 0
-  Plug 'w0rp/ale'
+  "Plug 'w0rp/ale'
 
   " 设定延迟和提示信息
   let g:ale_completion_delay = 500
@@ -887,13 +887,13 @@ if index(g:bundle_group, 'coc') >= 0
 
   " Applying codeAction to the selected region.
   " Example: `<leader>aap` for current paragraph
-  "xmap <leader>ca  <Plug>(coc-codeaction-selected)
-  "nmap <leader>ca  <Plug>(coc-codeaction-selected)
+  xmap <leader>ca  <Plug>(coc-codeaction-selected)
+  nmap <leader>ca  <Plug>(coc-codeaction-selected)
 
   " Remap keys for applying codeAction to the current line.
-  "nmap <leader>cc  <Plug>(coc-codeaction)
+  nmap <leader>cc  <Plug>(coc-codeaction)
   " Apply AutoFix to problem on the current line.
-  "nmap <leader>qf  <Plug>(coc-fix-current)
+  nmap <leader>qf  <Plug>(coc-fix-current)
 
   " Introduce function text object
   " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
@@ -1096,8 +1096,8 @@ if index(g:bundle_group, 'go') >= 0
   let g:go_highlight_build_constraints = 1
 
   " remap
-  autocmd FileType go nnoremap <buffer> <a-m> :GoDecls
-  autocmd FileType go nnoremap <buffer> <a-n> :GoDeclsDir
+  autocmd FileType go nnoremap <buffer> <a-m> :GoDecls<CR>
+  autocmd FileType go nnoremap <buffer> <a-n> :GoDeclsDir<CR>
 
   " delve
   let g:delve_backend = "lldb"
@@ -1110,6 +1110,8 @@ endif
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'go') >= 0
   Plug 'vimwiki/vimwiki'
+  " remap
+  autocmd FileType wiki,vimwiki nnoremap <buffer> <leader>wd :VimwikiToggleListItem<CR>
 endif
 "----------------------------------------------------------------------
 " vim script by dawn
