@@ -49,7 +49,7 @@ inoremap <c-l> <right>
 "----------------------------------------------------------------------
 "cmder下暂时不知道怎么解决 这几个快捷键 和backspace冲突 
 "确定问题了 还是bs在xterm上的问题 在style里修复了 普通和插入模式 没有修改命令模式
-"cnoremap <c-h> <left>
+cnoremap <c-h> <left>
 cnoremap <c-j> <down>
 cnoremap <c-k> <up>
 cnoremap <c-l> <right>

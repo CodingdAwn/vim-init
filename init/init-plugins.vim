@@ -6,13 +6,12 @@
 "======================================================================
 " vim: set ts=4 sw=4 tw=78 noet :
 
-
 "----------------------------------------------------------------------
 " 默认情况下的分组，可以再前面覆盖之
 "----------------------------------------------------------------------
 if !exists('g:bundle_group')
-	let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes', 'textobj']
-	let g:bundle_group += ['tags', 'airline', 'nerdtree', 'ale', 'echodoc', 'YCM']
+	let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes']
+	let g:bundle_group += ['tags', 'airline', 'nerdtree', 'ale', 'echodoc']
 	let g:bundle_group += ['leaderf', 'python-mode', 'cplusplus', 'neo', 'unity']
 	let g:bundle_group += ['markdown', 'cmake', 'coc', 'myself', 'translator']
 	let g:bundle_group += ['web', 'go', 'wiki']
@@ -35,7 +34,6 @@ endfunc
 "----------------------------------------------------------------------
 call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 
-
 "----------------------------------------------------------------------
 " 默认插件
 "----------------------------------------------------------------------
@@ -43,45 +41,8 @@ call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 " 全文快速移动，<leader><leader>f{char} 即可触发
 Plug 'easymotion/vim-easymotion'
 
-" 文件浏览器，代替 netrw
-"Plug 'justinmk/vim-dirvish'
-
-" 表格对齐，使用命令 Tabularize
-"Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
-
 " Diff 增强，支持 histogram / patience 等更科学的 diff 算法
 Plug 'chrisbra/vim-diff-enhanced'
-
-"----------------------------------------------------------------------
-" Dirvish 设置：自动排序并隐藏文件，同时定位到相关文件
-" 这个排序函数可以将目录排在前面，文件排在后面，并且按照字母顺序排序
-" 比默认的纯按照字母排序更友好点。
-"----------------------------------------------------------------------
-function! s:setup_dirvish()
-  if &buftype != 'nofile' && &filetype != 'dirvish'
-    return
-  endif
-  if has('nvim')
-    return
-  endif
-  " 取得光标所在行的文本（当前选中的文件名）
-  let text = getline('.')
-  if ! get(g:, 'dirvish_hide_visible', 0)
-    exec 'silent keeppatterns g@\v[\/]\.[^\/]+[\/]?$@d _'
-  endif
-  " 排序文件名
-  exec 'sort ,^.*[\/],'
-  let name = '^' . escape(text, '.*[]~\') . '[/*|@=|\\*]\=\%($\|\s\+\)'
-  " 定位到之前光标处的文件
-  call search(name, 'wc')
-  noremap <silent><buffer> ~ :Dirvish ~<cr>
-  noremap <buffer> % :e %
-endfunc
-
-augroup MyPluginSetup
-  autocmd!
-  autocmd FileType dirvish call s:setup_dirvish()
-augroup END
 
 "----------------------------------------------------------------------
 " 基础插件
@@ -112,6 +73,13 @@ if index(g:bundle_group, 'basic') >= 0
 
   " 提供基于 TAGS 的定义预览，函数参数预览，quickfix 预览
   Plug 'skywind3000/vim-preview'
+  noremap <F11> :PreviwScroll -10<cr>
+  noremap <F12> :PreviwScroll 10<cr>
+  noremap <Leader>pe :PreviewGoto edit<cr>
+  noremap <Leader>pt :PreviewGoto tabedit<cr>
+  autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+  autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
+  noremap <m-]> :PreviewTag <cr>
 
   " Git 支持
   Plug 'tpope/vim-fugitive'
@@ -121,9 +89,6 @@ if index(g:bundle_group, 'basic') >= 0
   " 当前单词 下划线
   Plug 'itchyny/vim-cursorword'
 
-  " distraction-free writing in vim
-  "Plug 'junegunn/goyo.vim'
-  
   " relative line nunbers
   Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
@@ -149,10 +114,6 @@ if index(g:bundle_group, 'basic') >= 0
  " viminfo在neovim中是不支持的
   if !has('nvim')
 		set viminfo='100,n$HOME/.vim/files/info/viminfo'
-  endif
-
-  if  has('nvim')
-    "let g:startify_sesion_dir = $XDG_DATA_HOME/nvim/session
   endif
 
   " 使用 <space>ha 清除 errormarker 标注的错误
@@ -207,50 +168,6 @@ if index(g:bundle_group, 'neo') >= 0
 endif
 
 "----------------------------------------------------------------------
-" YouCompleteMe
-"----------------------------------------------------------------------
-if index(g:bundle_group, 'YCM') >= 0
-  "Plug 'ycm-core/YouCompleteMe'
-
-  "----------------------------------------------------------------------
-  " YouCompleteMe 默认设置：YCM 需要你另外手动编译安装
-  "----------------------------------------------------------------------
-  " 禁用预览功能：扰乱视听
-  let g:ycm_add_preview_to_completeopt = 0
-  
-  " 禁用诊断功能：我们用前面更好用的 ALE 代替
-  let g:ycm_show_diagnostics_ui = 0
-  "let g:ycm_enable_diagnostic_signs = 0
-  "let g:ycm_enable_diagnostic_highlighting = 0
-  "let g:ycm_echo_current_diagnostic = 0
-  let g:ycm_server_log_level = 'info'
-  let g:ycm_min_num_identifier_candidate_chars = 2
-  let g:ycm_collect_identifiers_from_comments_and_strings = 1
-  let g:ycm_complete_in_strings=1
-  let g:ycm_key_invoke_completion = '<c-z>'
-  let g:ycm_use_clangd = 0
-  set completeopt=menu,menuone,noselect
-  
-  " Python ycm 解释器
-  if (g:is_windows)
-    let g:ycm_server_python_interpreter='C:\Users\admin\AppData\Local\Programs\Python\Python38'
-  else
-    let g:ycm_server_python_interpreter='/usr/local/bin/python3'
-  endif
-  "使用compile commands json
-  "let g:ycm_global_ycm_extra_conf='~\.vim\.ycm_extra_conf.py'
-  let g:ycm_confirm_extra_conf = 0
-  
-  " noremap <c-z> <NOP>
-  
-  " 两个字符自动触发语义补全
-  let g:ycm_semantic_triggers =  {
-        \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-        \ 'cs,lua,javascript': ['re!\w{2}'],
-        \ }
-endif
-
-"----------------------------------------------------------------------
 " 增强插件
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'enhanced') >= 0
@@ -265,12 +182,6 @@ if index(g:bundle_group, 'enhanced') >= 0
 
   let g:fzf_layout = { 'window': {'width': 0.8, 'height': 0.8} }
   let $FZF_DEFAULT_OPTS='--reverse'
-
-  " 使用 :FlyGrep 命令进行实时 grep
-  "Plug 'wsdjeg/FlyGrep.vim'
-
-  " 使用 :CtrlSF 命令进行模仿 sublime 的 grep
-  "Plug 'dyng/ctrlsf.vim'
 
   " 配对括号和引号自动补全
   Plug 'Raimondi/delimitMate'
@@ -299,16 +210,6 @@ if index(g:bundle_group, 'tags') >= 0
   " 提供 GscopeFind 命令并自动处理好 gtags 数据库切换
   " 支持光标移动到符号名上：<leader>cg 查看定义，<leader>cs 查看引用
   Plug 'skywind3000/gutentags_plus'
-
-  " 窗口预览
-  Plug 'skywind3000/vim-preview'
-  noremap <F11> :PreviwScroll -10<cr>
-  noremap <F12> :PreviwScroll 10<cr>
-  noremap <Leader>pe :PreviewGoto edit<cr>
-  noremap <Leader>pt :PreviewGoto tabedit<cr>
-  autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
-  autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
-  noremap <m-]> :PreviewTag <cr>
 
   let g:gutentags_plus_nomap = 1
   " 快捷键remap
@@ -437,9 +338,6 @@ if index(g:bundle_group, 'filetypes') >= 0
   " rust 语法增强
   Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
-  " vim org-mode 
-  Plug 'jceb/vim-orgmode', { 'for': 'org' }
-
   " vim-cpp-enhanced-highlight c++语法高亮
   let g:cpp_class_scope_highlight = 1
   let g:cpp_member_variable_highlight = 1
@@ -489,24 +387,6 @@ if index(g:bundle_group, 'nerdtree') >= 0
   noremap <space>nt :NERDTreeToggle<cr>
   let NERDTreeWinPos = 'right'
 endif
-
-
-"----------------------------------------------------------------------
-" LanguageTool 语法检查
-"----------------------------------------------------------------------
-if index(g:bundle_group, 'grammer') >= 0
-  "Plug 'rhysd/vim-grammarous'
-  noremap <space>rg :GrammarousCheck --lang=en-US --no-move-to-first-error --no-preview<cr>
-  map <space>rr <Plug>(grammarous-open-info-window)
-  map <space>rv <Plug>(grammarous-move-to-info-window)
-  map <space>rs <Plug>(grammarous-reset)
-  map <space>rx <Plug>(grammarous-close-info-window)
-  map <space>rm <Plug>(grammarous-remove-error)
-  map <space>rd <Plug>(grammarous-disable-rule)
-  map <space>rn <Plug>(grammarous-move-to-next-error)
-  map <space>rp <Plug>(grammarous-move-to-previous-error)
-endif
-
 
 "----------------------------------------------------------------------
 " ale：动态语法检查
@@ -583,11 +463,10 @@ endif
 " echodoc：搭配 YCM/deoplete 在底部显示函数参数
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'echodoc') >= 0
-  Plug 'Shougo/echodoc.vim'
-  set noshowmode
-  let g:echodoc#enable_at_startup = 1
+  "Plug 'Shougo/echodoc.vim'
+  "set noshowmode
+  "let g:echodoc#enable_at_startup = 1
 endif
-
 
 "----------------------------------------------------------------------
 " LeaderF：CtrlP / FZF 的超级代替者，文件模糊匹配，tags/函数名 选择
@@ -720,7 +599,7 @@ endif
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'python-mode') >= 0
   " python IDE
-  Plug 'python-mode/python-mode', { 'branch': 'develop' }
+  "Plug 'python-mode/python-mode', {'for': 'py', 'branch': 'develop' }
 
   " python-mode 设置
   let g:pymode_python = 'python3'
@@ -742,7 +621,6 @@ if index(g:bundle_group, 'python-mode') >= 0
   let g:pymode_rope_goto_definition_cmd = 'vnew'
 endif
 
-
 "----------------------------------------------------------------------
 " c/c++ customer config
 "----------------------------------------------------------------------
@@ -753,19 +631,8 @@ if index(g:bundle_group, 'cplusplus') >= 0
   " 头文件 cpp切换
   Plug 'CodingdAwn/a.vim'
 
-  " 由接口快速生成实现
-  " 不好用。。 还需要perl 还需要fswitch
-  " Plug 'derekwyatt/vim-protodef'
-
   " 设置autoformat快捷键
   noremap <F3> :Autoformat<CR>
-
-  " 配置vim-protodef
-  " 成员函数实现顺序与声明顺序一致
-  let g:disable_protodef_sorting = 0
-
-  " 设置脚本路径
-  let g:protodefprotogtter = '~\.vim\bundles\vim-protodef\pullproto.pl'
 endif
 
 "----------------------------------------------------------------------
@@ -801,10 +668,6 @@ if index(g:bundle_group, 'coc') >= 0
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   " TextEdit might fail if hidden is not set.
   set hidden
-
-  " Some servers have issues with backup files, see #649.
-  set nobackup
-  set nowritebackup
 
   " Give more space for displaying messages.
   "set cmdheight=2
@@ -875,7 +738,7 @@ if index(g:bundle_group, 'coc') >= 0
 
   " Formatting selected code.
   xmap <leader>of  <Plug>(coc-format-selected)
-  "nmap <leader>of  <Plug>(coc-format-selected)
+  nmap <leader>of  <Plug>(coc-format-selected)
 
   augroup mygroup
     autocmd!
@@ -1011,53 +874,53 @@ if index(g:bundle_group, 'unity') >= 0
   let g:OmniSharp_highlight_types = 2
   
   augroup omnisharp_commands
-      autocmd!
+    autocmd!
   
-      " Show type information automatically when the cursor stops moving.
-      " Note that the type is echoed to the Vim command line, and will overwrite
-      " any other messages in this space including e.g. ALE linting messages.
-      autocmd CursorHold *.cs OmniSharpTypeLookup
+    " Show type information automatically when the cursor stops moving.
+    " Note that the type is echoed to the Vim command line, and will overwrite
+    " any other messages in this space including e.g. ALE linting messages.
+    autocmd CursorHold *.cs OmniSharpTypeLookup
   
-      " The following commands are contextual, based on the cursor position.
-      autocmd FileType cs nnoremap <buffer> gd :OmniSharpGotoDefinition<CR>
-      autocmd FileType cs nnoremap <buffer> gt :OmniSharpFindImplementations<CR>
-      autocmd FileType cs nnoremap <buffer> gs :OmniSharpFindSymbol<CR>
-      autocmd FileType cs nnoremap <buffer> gu :OmniSharpFindUsages<CR>
+    " The following commands are contextual, based on the cursor position.
+    autocmd FileType cs nnoremap <buffer> gd :OmniSharpGotoDefinition<CR>
+    autocmd FileType cs nnoremap <buffer> gt :OmniSharpFindImplementations<CR>
+    autocmd FileType cs nnoremap <buffer> gs :OmniSharpFindSymbol<CR>
+    autocmd FileType cs nnoremap <buffer> gu :OmniSharpFindUsages<CR>
   
-      " Finds members in the current buffer
-      autocmd FileType cs nnoremap <buffer> <Leader>fm :OmniSharpFindMembers<CR>
+    " Finds members in the current buffer
+    autocmd FileType cs nnoremap <buffer> <Leader>fm :OmniSharpFindMembers<CR>
 
-      autocmd FileType cs nnoremap <buffer> <Leader>fx :OmniSharpFixUsings<CR>
-      autocmd FileType cs nnoremap <buffer> <Leader>ft :OmniSharpTypeLookup<CR>
-      autocmd FileType cs nnoremap <buffer> <Leader>fd :OmniSharpDocumentation<CR>
-      autocmd FileType cs nnoremap <buffer> <C-\> :OmniSharpSignatureHelp<CR>
-      autocmd FileType cs inoremap <buffer> <C-\> <C-o>:OmniSharpSignatureHelp<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>fx :OmniSharpFixUsings<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>ft :OmniSharpTypeLookup<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>fd :OmniSharpDocumentation<CR>
+    autocmd FileType cs nnoremap <buffer> <C-\> :OmniSharpSignatureHelp<CR>
+    autocmd FileType cs inoremap <buffer> <C-\> <C-o>:OmniSharpSignatureHelp<CR>
 
-      " Navigate up and down by method/property/field
-      autocmd FileType cs nnoremap <buffer> <C-k> :OmniSharpNavigateUp<CR>
-      autocmd FileType cs nnoremap <buffer> <C-j> :OmniSharpNavigateDown<CR>
+    " Navigate up and down by method/property/field
+    autocmd FileType cs nnoremap <buffer> <C-k> :OmniSharpNavigateUp<CR>
+    autocmd FileType cs nnoremap <buffer> <C-j> :OmniSharpNavigateDown<CR>
  
-      " Find all code errors/warnings for the current solution and populate the quickfix window
-      autocmd FileType cs nnoremap <buffer> <Leader>cc :OmniSharpGlobalCodeCheck<CR>
+    " Find all code errors/warnings for the current solution and populate the quickfix window
+    autocmd FileType cs nnoremap <buffer> <Leader>cc :OmniSharpGlobalCodeCheck<CR>
+      "
+    " Contextual code actions (uses fzf, CtrlP or unite.vim when available)
+    autocmd FileType cs nnoremap <Leader>fa :OmniSharpGetCodeActions<CR>
+    " Run code actions with text selected in visual mode to extract method
+    autocmd FileType cs xnoremap <Leader>fa :call OmniSharp#GetCodeActions('visual')<CR>
+    
+    " Rename with dialog
+    autocmd FileType cs nnoremap <Leader>fr :OmniSharpRename<CR>
+    "nnoremap <F2> :OmniSharpRename<CR>
+    " Rename without dialog - with cursor on the symbol to rename: `:Rename newname`
+    command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
+    
+    autocmd FileType cs nnoremap <Leader>ff :OmniSharpCodeFormat<CR>
+    
+    " Start the omnisharp server for the current solution
+    autocmd FileType cs noremap <Leader>fs :OmniSharpStartServer<CR>
+    autocmd FileType cs noremap <Leader>fp :OmniSharpStopServer<CR>
+    autocmd FileType cs noremap <Leader>fe :OmniSharpHighlightEcho<CR>
   augroup END
-  
-  " Contextual code actions (uses fzf, CtrlP or unite.vim when available)
-  nnoremap <Leader>fa :OmniSharpGetCodeActions<CR>
-  " Run code actions with text selected in visual mode to extract method
-  xnoremap <Leader>fa :call OmniSharp#GetCodeActions('visual')<CR>
-  
-  " Rename with dialog
-  nnoremap <Leader>fr :OmniSharpRename<CR>
-  "nnoremap <F2> :OmniSharpRename<CR>
-  " Rename without dialog - with cursor on the symbol to rename: `:Rename newname`
-  command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
-  
-  nnoremap <Leader>ff :OmniSharpCodeFormat<CR>
-  
-  " Start the omnisharp server for the current solution
-  nnoremap <Leader>fs :OmniSharpStartServer<CR>
-  nnoremap <Leader>fp :OmniSharpStopServer<CR>
-  nnoremap <Leader>fe :OmniSharpHighlightEcho<CR>
   
   " Enable snippet completion
   let g:OmniSharp_want_snippet=1
@@ -1078,10 +941,10 @@ endif
 " go
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'go') >= 0
-  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+  Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoUpdateBinaries' }
 
   " go debuger
-  Plug 'sebdah/vim-delve'
+  Plug 'sebdah/vim-delve', {'for': 'go'}
 
   " 使用coc的map代替
   let g:go_def_mapping_enabled = 0
@@ -1118,7 +981,8 @@ endif
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'myself') >= 0
   " memo 
-  Plug 'CodingdAwn/vim-memo'
+  " 使用vimwiki 代替
+  "Plug 'CodingdAwn/vim-memo'
 
   " file header auto generate
   Plug 'CodingdAwn/vim-header'
@@ -1132,62 +996,3 @@ endif
 " 结束插件安装
 "----------------------------------------------------------------------
 call plug#end()
-
-"----------------------------------------------------------------------
-" Ycm 白名单（非名单内文件不启用 YCM），避免打开个 1MB 的 txt 分析半天
-"----------------------------------------------------------------------
-let g:ycm_filetype_whitelist = {
-      \ "c":1,
-      \ "cpp":1,
-      \ "cxx":1,
-      \ "objc":1,
-      \ "objcpp":1,
-      \ "python":1,
-      \ "java":1,
-      \ "javascript":1,
-      \ "coffee":1,
-      \ "vim":1,
-      \ "go":1,
-      \ "cs":1,
-      \ "lua":1,
-      \ "perl":1,
-      \ "perl6":1,
-      \ "php":1,
-      \ "ruby":1,
-      \ "rust":1,
-      \ "erlang":1,
-      \ "asm":1,
-      \ "nasm":1,
-      \ "masm":1,
-      \ "tasm":1,
-      \ "asm68k":1,
-      \ "asmh8300":1,
-      \ "asciidoc":1,
-      \ "basic":1,
-      \ "vb":1,
-      \ "make":1,
-      \ "cmake":1,
-      \ "html":1,
-      \ "css":1,
-      \ "less":1,
-      \ "json":1,
-      \ "cson":1,
-      \ "typedscript":1,
-      \ "haskell":1,
-      \ "lhaskell":1,
-      \ "lisp":1,
-      \ "scheme":1,
-      \ "sdl":1,
-      \ "sh":1,
-      \ "zsh":1,
-      \ "bash":1,
-      \ "man":1,
-      \ "markdown":1,
-      \ "matlab":1,
-      \ "maxima":1,
-      \ "dosini":1,
-      \ "conf":1,
-      \ "config":1,
-      \ "zimbu":1,
-      \ "ps1":1,
-      \ }
