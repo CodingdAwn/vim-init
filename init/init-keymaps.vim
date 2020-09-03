@@ -341,5 +341,10 @@ else
 				\ '<root>' <cr>
 endif
 
+"----------------------------------------------------------------------
 " some remap myself
+"----------------------------------------------------------------------
+" open terminal
 nnoremap <leader>tm :vsp term://zsh <cr>
+" change current dir with current file
+nnoremap <leader>cd :lcd %:p:h <cr>
