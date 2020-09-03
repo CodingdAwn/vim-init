@@ -195,6 +195,22 @@ if index(g:bundle_group, 'enhanced') >= 0
 
 	" indentLine
 	Plug 'Yggdroot/indentLine'
+  " 快速grep替换
+  Plug 'brooth/far.vim'
+  set lazyredraw            " improve scrolling performance when navigating through large results
+  set regexpengine=1        " use old regexp engine
+  set ignorecase smartcase  " ignore case only when the pattern contains no capital letters
+
+  " shortcut for far.vim find
+  nnoremap <silent> <leader>ff  :Farf<cr>
+  vnoremap <silent> <leader>ff  :Farf<cr>
+
+  " shortcut for far.vim replace
+  nnoremap <silent> <leader>fr  :Farr<cr>
+  vnoremap <silent> <leader>fr  :Farr<cr>
+
+  " 设置far可以undo
+  let g:far#enable_undo=1
 endif
 
 "----------------------------------------------------------------------
@@ -385,6 +401,7 @@ if index(g:bundle_group, 'nerdtree') >= 0
   noremap <space>no :NERDTreeFocus<cr>
   noremap <space>nm :NERDTreeMirror<cr>
   noremap <space>nt :NERDTreeToggle<cr>
+  noremap <space>nc :NERDTree %<cr>
   let NERDTreeWinPos = 'right'
 endif
 

@@ -341,4 +341,5 @@ else
 				\ '<root>' <cr>
 endif
 
-
+" some remap myself
+nnoremap <leader>tm :vsp term://zsh <cr>
