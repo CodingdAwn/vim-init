@@ -88,6 +88,7 @@ function ToTransparent()
   hi! Normal ctermbg=NONE guibg=NONE
 endfunction
 command! -nargs=0 -bang Transparent call ToTransparent()
+noremap <silent><leader>tt :Transparent<cr>
 
 "----------------------------------------------------------------------
 " create a new tab with current buffer content
@@ -97,4 +98,5 @@ function ToNewTabWithBuffer()
   exec ':tab split'
 endfunction
 command! -nargs=0 -bang TabWithBuffer call ToNewTabWithBuffer()
+
 

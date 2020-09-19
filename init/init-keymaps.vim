@@ -348,3 +348,8 @@ endif
 nnoremap <leader>tm :vsp term://zsh <cr>
 " change current dir with current file
 nnoremap <leader>cd :lcd %:p:h <cr>
+" copy paste from clipboard more convenient
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+nnoremap <leader>p "+p
+vnoremap <leader>p "+p

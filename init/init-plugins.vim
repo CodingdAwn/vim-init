@@ -337,7 +337,7 @@ endif
 if index(g:bundle_group, 'filetypes') >= 0
 
   " powershell 脚本文件的语法高亮
-  Plug 'pprovost/vim-ps1', { 'for': 'ps1' }
+  "Plug 'pprovost/vim-ps1', { 'for': 'ps1' }
 
   " lua 语法高亮增强
   Plug 'tbastos/vim-lua', { 'for': 'lua' }
@@ -643,10 +643,10 @@ endif
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'cplusplus') >= 0
   " auto format c++ 默认使用llvm google风格
-  Plug 'Chiel92/vim-autoformat'
+  Plug 'Chiel92/vim-autoformat', {'for': ['c', 'cpp']}
 
   " 头文件 cpp切换
-  Plug 'CodingdAwn/a.vim'
+  Plug 'CodingdAwn/a.vim', {'for': ['c', 'cpp']}
 
   " 设置autoformat快捷键
   noremap <F3> :Autoformat<CR>
@@ -754,8 +754,8 @@ if index(g:bundle_group, 'coc') >= 0
   nmap <leader>or <Plug>(coc-rename)
 
   " Formatting selected code.
-  xmap <leader>of  <Plug>(coc-format-selected)
-  nmap <leader>of  <Plug>(coc-format-selected)
+  xmap <leader>os  <Plug>(coc-format-selected)
+  nmap <leader>os  <Plug>(coc-format-selected)
 
   augroup mygroup
     autocmd!
@@ -767,13 +767,13 @@ if index(g:bundle_group, 'coc') >= 0
 
   " Applying codeAction to the selected region.
   " Example: `<leader>aap` for current paragraph
-  xmap <leader>ca  <Plug>(coc-codeaction-selected)
-  nmap <leader>ca  <Plug>(coc-codeaction-selected)
+  xmap <leader>oa  <Plug>(coc-codeaction-selected)
+  nmap <leader>oa  <Plug>(coc-codeaction-selected)
 
   " Remap keys for applying codeAction to the current line.
-  nmap <leader>cc  <Plug>(coc-codeaction)
+  nmap <leader>oc  <Plug>(coc-codeaction)
   " Apply AutoFix to problem on the current line.
-  nmap <leader>qf  <Plug>(coc-fix-current)
+  nmap <leader>of  <Plug>(coc-fix-current)
 
   " Introduce function text object
   " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
@@ -811,7 +811,7 @@ if index(g:bundle_group, 'coc') >= 0
   " Find symbol of current document.
   nnoremap <silent> <leader>oo  :<C-u>CocList outline<cr>
   " Search workspace symbols.
-  nnoremap <silent> <leader>os :<C-u>CocList -I symbols<cr>
+  "nnoremap <silent> <leader>os :<C-u>CocList -I symbols<cr>
   " Do default action for next item.
   nnoremap <silent> <leader>oj  :<C-u>CocNext<CR>
   " Do default action for previous item.
@@ -833,13 +833,14 @@ endif
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'unity') >= 0
   " vim omnicompletion for c#
-  Plug 'OmniSharp/omnisharp-vim'
+  Plug 'OmniSharp/omnisharp-vim', { 'for': 'cs' }
   
   " Track the engine.
   Plug 'SirVer/ultisnips'
   
   " Snippets are separated from the engine. Add this if you want them:
   Plug 'honza/vim-snippets'
+
   " 代码补全一般都会用tab
   let g:UltiSnipsExpandTrigger="<c-z>"
 
