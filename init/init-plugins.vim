@@ -182,6 +182,8 @@ if index(g:bundle_group, 'enhanced') >= 0
 
   let g:fzf_layout = { 'window': {'width': 0.8, 'height': 0.8} }
   let $FZF_DEFAULT_OPTS='--reverse'
+  command! -bang -nargs=* Rg
+  \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'dir': system('git rev-parse --show-toplevel 2> /dev/null')[:-2]}, <bang>0)
 
   " 配对括号和引号自动补全
   Plug 'Raimondi/delimitMate'
