@@ -233,11 +233,11 @@ endif
 if index(g:bundle_group, 'tags') >= 0
 
   " 提供 ctags/gtags 后台数据库自动更新功能
-  Plug 'ludovicchabant/vim-gutentags'
+  Plug 'ludovicchabant/vim-gutentags', { 'for':['c', 'cpp'] }
 
   " 提供 GscopeFind 命令并自动处理好 gtags 数据库切换
   " 支持光标移动到符号名上：<leader>cg 查看定义，<leader>cs 查看引用
-  Plug 'skywind3000/gutentags_plus'
+  Plug 'skywind3000/gutentags_plus', { 'for':['c', 'cpp'] }
 
   let g:gutentags_plus_nomap = 1
   " 快捷键remap
@@ -781,6 +781,17 @@ if index(g:bundle_group, 'coc') >= 0
   nmap <silent> gy <Plug>(coc-type-definition)
   nmap <silent> gi <Plug>(coc-implementation)
   nmap <silent> gr <Plug>(coc-references)
+
+  nnoremap <silent> <leader>gv :call <SID>definition_other_window('vsplit')<CR>
+  nnoremap <silent> <leader>gh :call <SID>definition_other_window('split')<CR>
+  function! s:definition_other_window(win_split) abort
+    if winnr('$') >= 4 || (winwidth(0) - (max([len(line('$')), &numberwidth-1]) + 1)) < 110
+      exec "normal \<Plug>(coc-definition)"
+    else
+      exec a:win_split
+      exec "normal \<Plug>(coc-definition)"
+    endif
+  endfunction
 
   " Use K to show documentation in preview window.
   nnoremap <silent> K :call <SID>show_documentation()<CR>
