@@ -14,7 +14,7 @@ if !exists('g:bundle_group')
 	let g:bundle_group += ['tags', 'airline', 'nerdtree', 'ale', 'echodoc']
 	let g:bundle_group += ['leaderf', 'python-mode', 'cplusplus', 'neo', 'unity']
 	let g:bundle_group += ['markdown', 'cmake', 'coc', 'myself', 'translator']
-	let g:bundle_group += ['web', 'go', 'wiki']
+	let g:bundle_group += ['web', 'go', 'wiki', 'debugger']
 endif
 
 
@@ -1042,6 +1042,16 @@ if index(g:bundle_group, 'go') >= 0
   " remap
   autocmd FileType wiki,vimwiki nnoremap <buffer> <leader>wd :VimwikiToggleListItem<CR>
 endif
+
+"----------------------------------------------------------------------
+" vim debugger
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'debugger') >= 0
+  Plug 'puremourning/vimspector'
+  let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
+  let g:vimspector_install_gadgets = [ 'vscode-go', 'vscode-cpptools' ]
+endif
+
 "----------------------------------------------------------------------
 " vim script by dawn
 "----------------------------------------------------------------------
