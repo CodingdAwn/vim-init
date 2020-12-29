@@ -204,12 +204,12 @@ if index(g:bundle_group, 'enhanced') >= 0
   set ignorecase smartcase  " ignore case only when the pattern contains no capital letters
 
   " shortcut for far.vim find
-  nnoremap <silent> <leader>ff  :Farf<cr>
-  vnoremap <silent> <leader>ff  :Farf<cr>
+  nnoremap <silent> <leader>ff  :Farf --source=rg<cr>
+  vnoremap <silent> <leader>ff  :Farf --source=rg<cr>
 
   " shortcut for far.vim replace
-  nnoremap <silent> <leader>fr  :Farr<cr>
-  vnoremap <silent> <leader>fr  :Farr<cr>
+  nnoremap <silent> <leader>fr  :Farr --source=rg<cr>
+  vnoremap <silent> <leader>fr  :Farr --source=rg<cr>
 
   " 设置far可以undo
   let g:far#enable_undo=1
