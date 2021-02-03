@@ -213,6 +213,11 @@ if index(g:bundle_group, 'enhanced') >= 0
 
   " 设置far可以undo
   let g:far#enable_undo=1
+  
+  " telescope
+  "Plug 'nvim-lua/popup.nvim'
+  "Plug 'nvim-lua/plenary.nvim'
+  "Plug 'nvim-telescope/telescope.nvim'
 
   " Track the engine.
   "Plug 'SirVer/ultisnips'
@@ -404,8 +409,10 @@ endif
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'nerdtree') >= 0
   "Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFocus', 'NERDTreeToggle', 'NERDTreeCWD', 'NERDTreeFind'] }
-  Plug 'scrooloose/nerdtree'
+  Plug 'scrooloose/nerdtree' | 
+        \ Plug 'Xuyuanp/nerdtree-git-plugin'
   "Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+  " git nerdtree
   let g:NERDTreeMinimalUI = 1
   let g:NERDTreeDirArrows = 1
   let g:NERDTreeHijackNetrw = 0

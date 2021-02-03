@@ -99,4 +99,7 @@ function ToNewTabWithBuffer()
 endfunction
 command! -nargs=0 -bang TabWithBuffer call ToNewTabWithBuffer()
 
-
+"----------------------------------------------------------------------
+" map leader cd, cd to current directory
+" ----------------------------------------------------------------------
+nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>

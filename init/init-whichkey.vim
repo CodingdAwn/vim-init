@@ -11,7 +11,7 @@ let g:which_key_map = {}
 let g:which_key_map.c = {
       \ 'name' : '+omnisharp',
       \ 'a' : 'code action',
-      \ 'd' : 'documentation',
+      \ 'd' : 'cd to current directory',
       \ 'e' : 'highlight echo',
       \ 'r' : 'rename',
       \ 's' : 'start server',
