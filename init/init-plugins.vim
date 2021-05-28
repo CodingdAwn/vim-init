@@ -220,7 +220,7 @@ if index(g:bundle_group, 'enhanced') >= 0
   "Plug 'nvim-telescope/telescope.nvim'
 
   " Track the engine.
-  "Plug 'SirVer/ultisnips'
+  Plug 'SirVer/ultisnips'
   
   " Snippets are separated from the engine. Add this if you want them:
   "Plug 'honza/vim-snippets'
@@ -1022,6 +1022,12 @@ if index(g:bundle_group, 'go') >= 0
   " 使用coc的map代替
   let g:go_def_mapping_enabled = 0
 
+  " wsl2文脉项目lsp各种不好使问题 查问题用
+  "let g:go_def_mode='godef'
+  "let g:go_info_mode='gopls'
+  "let g:go_debug = ['shell-commands']
+  " end
+
   " highlight
   let g:go_highlight_types = 1
   let g:go_highlight_fields = 1
@@ -1039,6 +1045,7 @@ if index(g:bundle_group, 'go') >= 0
   let g:delve_backend = "lldb"
 
   " some config
+  "let g:go_snippet_engine = "ultisnips"
 endif
 
 "----------------------------------------------------------------------
