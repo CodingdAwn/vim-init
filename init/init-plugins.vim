@@ -213,11 +213,17 @@ if index(g:bundle_group, 'enhanced') >= 0
 
   " 设置far可以undo
   let g:far#enable_undo=1
-  
-  " telescope
-  "Plug 'nvim-lua/popup.nvim'
-  "Plug 'nvim-lua/plenary.nvim'
-  "Plug 'nvim-telescope/telescope.nvim'
+
+  " telescope 如果使用neovim telescope need nvim version 0.5 at least
+  Plug 'nvim-lua/popup.nvim'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
+
+  " Using lua functions
+  nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+  nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+  nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+  nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 
   " Track the engine.
   Plug 'SirVer/ultisnips'
@@ -1045,7 +1051,7 @@ if index(g:bundle_group, 'go') >= 0
   let g:delve_backend = "lldb"
 
   " some config
-  "let g:go_snippet_engine = "ultisnips"
+  let g:go_snippet_engine = "ultisnips"
 endif
 
 "----------------------------------------------------------------------
