@@ -709,6 +709,7 @@ endif
 if index(g:bundle_group, 'coc') >= 0
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	let g:coc_global_extensions = ['coc-json', 'coc-snippets']
+  let g:coc_global_extensions += ['coc-vimlsp']
  
   " TextEdit might fail if hidden is not set.
   set hidden
