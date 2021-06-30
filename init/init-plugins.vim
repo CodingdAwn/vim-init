@@ -1,5 +1,4 @@
 " init-plugins.vim -
-"
 " Created by skywind on 2018/05/31
 " Last Modified: 2018/06/10 23:11
 "
@@ -10,7 +9,7 @@
 " 默认情况下的分组，可以再前面覆盖之
 "----------------------------------------------------------------------
 if !exists('g:bundle_group')
-	let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes']
+	let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes, textobj']
 	let g:bundle_group += ['tags', 'airline', 'nerdtree', 'ale', 'echodoc']
 	let g:bundle_group += ['leaderf', 'python-mode', 'cplusplus', 'neo', 'unity']
 	let g:bundle_group += ['markdown', 'cmake', 'coc', 'myself', 'translator']
@@ -327,6 +326,7 @@ if index(g:bundle_group, 'tags') >= 0
   \  '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx', '*.xls',
   \]
 endif
+
 "----------------------------------------------------------------------
 " 文本对象：textobj 全家桶
 "----------------------------------------------------------------------
